@@ -32,6 +32,7 @@ Integrated with Qwen Cloud via `qwen3.7-max`, `qwq-plus`, and `text-embedding-v4
 ## Links
 
 - **Alibaba Cloud endpoint:** `https://ws-h3ayxryayp3b7ad5.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1`
+- **Demo video (3 min):** https://github.com/aigon-x/aigon-agent-society-qwen-hack/releases/download/demo-v1/demo-video.mp4
 
 ## Structure
 

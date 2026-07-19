@@ -20,6 +20,8 @@ if [ -z "$ECS_IP" ]; then
   exit 1
 fi
 
+: "${QWEN_API_KEY:?set QWEN_API_KEY in your environment before running this script}"
+
 BINARY="../runtime-v2/target/release/aigon-runtime-v2"
 REMOTE_DIR="/opt/aigon-x-runtime"
 
@@ -43,7 +45,7 @@ After=network.target
 Type=simple
 ExecStart=$REMOTE_DIR/aigon-runtime-v2 --mode standalone --listen 0.0.0.0:7000
 Environment=RUST_LOG=info
-Environment=QWEN_API_KEY=sk-2243bf91ff064b29bdb18d9419cc2c04
+Environment=QWEN_API_KEY=$QWEN_API_KEY
 Environment=QWEN_ENDPOINT=https://ws-h3ayxryayp3b7ad5.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1
 Environment=QWEN_MODEL=qwen3.7-max
 Restart=always

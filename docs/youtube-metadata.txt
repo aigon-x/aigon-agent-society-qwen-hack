@@ -1,0 +1,43 @@
+=== TYTUŁ (max 100 znaków) ===
+AIGON Agent Society — 12-Kernel Multi-Agent Runtime | Qwen Cloud Hackathon 2026
+
+=== OPIS ===
+AIGON Agent Society is a production multi-agent cognitive runtime with 12 specialized AI agents (kernels) collaborating autonomously — planning, reasoning, remembering, reaching consensus, and self-improving in real time.
+
+Built with Qwen Cloud (qwen3.7-max, qwq-plus, qwen-vl-max, text-embedding-v4) and deployed on Alibaba Cloud ECS.
+
+Submission for the Qwen Cloud Global AI Hackathon 2026 — Agent Society track.
+
+WHAT
+A 12-kernel agent society, each kernel a specialized autonomous agent:
+Nano (execution) · Curie (cognition) · Planck (planning) · Freud (memory)
+Galileo (knowledge) · Yairoslaw (consensus) · Hawking (facts) · Turing (verification)
+Knowledge (fabric) · Nash (decisions) · Darwin (evolution) · Yudai (security)
+
+WHO
+Built solo by Jakub Sniegocki on top of AIGON-X Runtime v2 — 67 Rust crates, 4-node mesh federation, already running in production on bare metal; this submission ports it to Alibaba Cloud.
+
+HOW
+Each kernel runs as an independent agent communicating over a mesh, reaching distributed consensus (Raft CRDT), sharing long-term memory, and coordinating multi-step tasks — demonstrated here as an AI incident-response team (alert -> diagnosis -> knowledge review -> decision -> self-improvement -> compliance check).
+
+BUILT WITH
+- Qwen Cloud (qwen3.7-max, qwq-plus, qwen-vl-max, text-embedding-v4)
+- Rust (Axum, Tokio, Serde)
+- Alibaba Cloud ECS
+- Docker
+
+LINKS
+GitHub: https://github.com/aigon-x/aigon-agent-society-qwen-hack
+Live dashboard: https://prod-aigon.taila6760f.ts.net/
+Runtime health API: https://prod-aigon.taila6760f.ts.net/api/health
+
+#QwenCloud #AgentSociety #MultiAgent #AI #Hackathon #AlibabaCloud
+
+=== TAGI (comma-separated, wklej w polu Tags) ===
+Qwen Cloud, Qwen Cloud Hackathon, Agent Society, Multi-Agent System, AI Agents, Alibaba Cloud, AIGON-X, Autonomous Agents, LLM Agents, Rust, AI Hackathon 2026
+
+=== USTAWIENIA ===
+Visibility: Public (wymóg regulaminu — "public and playable without login")
+Category: Science & Technology
+Nie oznaczaj jako "Made for Kids"
+Playlist/thumbnail: opcjonalne, można pominąć

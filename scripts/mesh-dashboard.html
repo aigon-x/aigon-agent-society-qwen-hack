@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AIGON Mesh Federation — Control Plane</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0b0f;--surface:#111318;--surface2:#181b24;--border:#23263b;--cyan:#00f0ff;--magenta:#c084fc;--green:#22d3a7;--yellow:#fbbf24;--red:#ef4444;--text:#e2e8f0;--dim:#6b7280;--font:'Inter',sans-serif;--mono:'JetBrains Mono',monospace}
+body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh}
+.header{grid-column:1/5;display:flex;align-items:center;justify-content:space-between;padding:16px 20px;background:var(--surface);border:1px solid var(--border);border-radius:12px}
+.logo{font-size:22px;font-weight:800;background:linear-gradient(135deg,var(--cyan),var(--magenta));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.header-right{display:flex;align-items:center;gap:16px;font-size:13px}
+.badge{padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600;letter-spacing:.05em}
+.badge-cyan{background:rgba(0,240,255,.15);color:var(--cyan)}
+.badge-magenta{background:rgba(192,132,252,.15);color:var(--magenta)}
+.badge-pass{background:rgba(34,211,167,.15);color:var(--green)}
+.badge-fail{background:rgba(239,68,68,.15);color:var(--red)}
+.dim{color:var(--dim)}.green{color:var(--green)}.num{font-family:var(--mono);font-size:20px;font-weight:700}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px}
+h2{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);margin-bottom:16px}
+#app{display:grid;gap:16px;grid-template-columns:1fr 1fr 1fr 1fr;max-width:1400px;margin:0 auto;padding:20px}
+.kernel-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.kernel-node{position:relative;padding:12px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;transition:all .3s;cursor:default}
+.kernel-node:hover{border-color:var(--cyan);box-shadow:0 0 20px rgba(0,240,255,.1)}
+.kn-status{position:absolute;top:8px;right:8px;width:8px;height:8px;border-radius:50%}
+.kn-name{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.kn-ticks{font-family:var(--mono);font-size:16px;font-weight:700}
+.kn-delta{font-family:var(--mono);font-size:11px;color:var(--dim)}
+.kn-sla{font-size:11px;color:var(--green);margin-top:2px}
+.kn-sub{font-size:10px;color:var(--dim);margin-top:4px;font-family:var(--mono)}
+.iq-number{font-family:var(--mono);font-size:48px;font-weight:800;letter-spacing:-2px;background:linear-gradient(135deg,var(--cyan),var(--magenta));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:16px}
+.iq-number .iq-label{font-size:14px;font-weight:600;-webkit-text-fill-color:var(--dim);margin-left:8px}
+.iq-dims{display:flex;flex-direction:column;gap:10px}
+.iq-row{display:flex;align-items:center;gap:8px;font-size:12px}
+.iq-row span:first-child{flex:1;color:var(--dim);text-transform:capitalize}
+.iq-row span:nth-child(2){font-family:var(--mono);width:48px;text-align:right}
+.iq-bar{flex:1;height:4px;background:var(--border);border-radius:2px;overflow:hidden}
+.iq-fill{height:100%;border-radius:2px;transition:width .5s ease}
+.comp-rules{display:flex;flex-direction:column;gap:6px}
+.comp-rule{display:flex;align-items:center;gap:8px;font-size:12px;padding:6px 8px;border-radius:6px;background:var(--surface2)}
+.comp-rule.pass{border-left:2px solid var(--green)}
+.comp-rule.fail{border-left:2px solid var(--red)}
+.comp-badge{font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px}
+.comp-stats{display:flex;gap:16px;margin-top:12px;font-size:12px;color:var(--dim)}
+.comp-stats span{display:flex;align-items:center;gap:4px}
+.darwin-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;margin-bottom:8px}
+.progress-bar{height:4px;background:var(--border);border-radius:2px;overflow:hidden;margin-top:12px}
+.progress-fill{height:100%;border-radius:2px;transition:width .5s}
+.grid-2col{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid-2col div{text-align:center;padding:10px;background:var(--surface2);border-radius:8px}
+.grid-2col .num{display:block;margin-bottom:2px}
+.mesh-card{grid-column:1/3}
+.mesh-topo{display:flex;flex-direction:column;gap:8px}
+.mesh-node-row{display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--surface2);border-radius:8px;font-size:13px}
+.mesh-node-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.mesh-node-id{font-family:var(--mono);color:var(--cyan);font-size:12px}
+.mesh-node-role{font-size:11px;color:var(--dim)}
+.compact-card{grid-column:3/5}
+.loc-card{grid-column:1/3}
+.bt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.bt-item{font-size:11px;padding:8px 10px;background:var(--surface2);border-radius:6px;color:var(--dim)}
+.bt-num{font-family:var(--mono);font-size:10px;color:var(--cyan);margin-right:6px;font-weight:700}
+.footer{grid-column:1/5;text-align:center;padding:20px;font-size:13px;color:var(--dim)}
+a{color:var(--cyan);text-decoration:none}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const API='/api/health';
+const COLORS={Healthy:'#22d3a7',Degraded:'#fbbf24',Failed:'#ef4444',Unknown:'#6b7280'};
+const NAMES=["nano","curie","planck","freud","galileo","yairoslaw","hawking","turing","knowledge","nash","darwin","yudai"];
+const DIMS=["working_memory","processing_speed","logical_reasoning","knowledge_integration","resilience","experience"];
+let data=null;
+function statusColor(s){return COLORS[s]||COLORS.Unknown}
+function sc(c){return c>=0.8?'var(--green)':c>=0.5?'var(--yellow)':'var(--red)'}
+async function fetchData(){
+  try{
+    const r=await fetch(API);const d=await r.json();
+    if(data){const k=d.kernel_health||[];const ok=data.kernel_health||[];
+      d._ticks_delta=k.map((k,i)=>k.ticks_total-(ok[i]?.ticks_total||k.ticks_total));
+      d._gen_delta=0;d._pop_delta=0;
+      if(k[10]?.details?.engine_stats?.[0]&&ok[10]?.details?.engine_stats?.[0]){
+        d._gen_delta=k[10].details.engine_stats[0].generation-ok[10].details.engine_stats[0].generation;
+        d._pop_delta=k[10].details.engine_stats[0].population-ok[10].details.engine_stats[0].population;
+      }
+    }data=d;render();
+  }catch(e){document.getElementById('app').innerHTML='<div class="card" style="grid-column:1/5;text-align:center;padding:60px;color:var(--red)"><h2>Connection Error</h2><p>Cannot reach runtime at '+API+'</p></div>';console.error(e)}
+}
+function render(){
+  if(!data)return;
+  const h=data,k=h.kernel_health||[],y=k[11]?.details||{},iq=h.iq_test_battery||{},
+    imm=h.immune_system||{},serr=h.system_errors||{},ent=h.entropy||{},
+    econ=h.economy||{},mesh=h.mesh||{},tm=h.time_machine||{},kpi=h.kpi||{},
+    dar=k[10]?.details||{},darEs=dar.engine_stats?.[0]||{},
+    sn=h.sensor||{},nodes=mesh.nodes||[];
+  let fsiq=iq.full_scale_iq||0;
+  let comp=y.compliance||[];
+  let gen=darEs.generation||dar.generation_count||0;
+  let pop=darEs.population||0;
+  let fit=darEs.best_fitness||0;
+  let ticksTotal = sum(k.map(x=>x.ticks_total||0));
+  document.getElementById('app').innerHTML=`
+    <div class="header">
+      <div class="logo">AIGON <span style="font-weight:400;-webkit-text-fill-color:var(--dim)">Mesh Federation</span></div>
+      <div class="header-right">
+        <span class="badge badge-cyan">Control Plane</span>
+        <span class="badge badge-magenta">${fsiq.toFixed(1)} FSIQ</span>
+        <span class="dim">${nodes.length} node${nodes.length!==1?'s':''}</span>
+        <span class="dim">${fmt(h.uptime_seconds||0)}</span>
+      </div>
+    </div>
+    <div class="card mesh-card">
+      <h2>Topology <span class="dim" style="font-weight:400">— ${nodes.length} node${nodes.length!==1?'s':' '} · ${mesh.has_quorum?'QUORUM':'NO QUORUM'}</span></h2>
+      <div class="mesh-topo">${nodes.map(n=>`
+        <div class="mesh-node-row">
+          <div class="mesh-node-dot" style="background:${statusColor(n.state||'Healthy')}"></div>
+          <div class="mesh-node-id">${(n.node_id||'?').slice(0,16)}</div>
+          <div class="mesh-node-role">${n.role||'?'} · ${(n.listen_addr||'').split(':')[0]||'?'}:${(n.listen_addr||'').split(':')[1]||'?'}</div>
+          <div style="margin-left:auto;font-size:11px;color:var(--dim)">${(n.capabilities||[]).join(', ')}</div>
+        </div>
+      `).join('')}</div>
+    </div>
+    <div class="card compact-card">
+      <h2>Federation State</h2>
+      <div class="grid-2col">
+        <div><div class="num">${mesh.peer_count||0}</div><span class="dim">peers</span></div>
+        <div><div class="num" style="color:${mesh.has_quorum?'var(--green)':'var(--red)'}">${mesh.has_quorum?'YES':'NO'}</div><span class="dim">quorum</span></div>
+        <div><div class="num">${nodes.length}</div><span class="dim">nodes</span></div>
+        <div><div class="num">${(h.node_id||'').slice(0,8)}</div><span class="dim">local node</span></div>
+      </div>
+      <div style="margin-top:12px;font-size:12px;color:var(--dim);padding:10px;background:var(--surface2);border-radius:8px">
+        Protocol: MAIPS · Consensus: Raft CRDT · Transport: TLS
+      </div>
+    </div>
+    <div class="card loc-card">
+      <h2>Kernel Society <span class="dim" style="font-weight:400">— 12 organisms</span></h2>
+      <div class="kernel-grid">${k.map((k,i)=>`
+        <div class="kernel-node">
+          <div class="kn-status" style="background:${statusColor(k.status)}"></div>
+          <div class="kn-name">${i<NAMES.length?NAMES[i]:'k'+i}</div>
+          <div class="kn-ticks">${(k.ticks_total||0).toLocaleString()}</div>
+          <div class="kn-delta">${h._ticks_delta?.[i]?'+'+(h._ticks_delta[i]||0):'0'}</div>
+          <div class="kn-sla">${(k.sla_compliance_pct||0).toFixed(0)}% SLA</div>
+          ${i===0?'<div class="kn-sub">'+((k.details?.workers||k.details?.workers_active||0)+'W · '+(k.details?.total_tasks||0).toLocaleString())+'</div>':''}
+          ${i===5?'<div class="kn-sub">leader='+(k.details?.am_i_leader||false)+'</div>':''}
+          ${i===10?'<div class="kn-sub">fit: '+(darEs.best_fitness||0).toFixed(3)+'</div>':''}
+          ${i===11?'<div class="kn-sub">'+(comp||[]).filter(c=>c.passed).length+'/'+(comp||[]).length+' pass</div>':''}
+        </div>
+      `).join('')}</div>
+    </div>
+    <div class="card compact-card">
+      <h2>Intelligence</h2>
+      <div class="iq-number">${fsiq.toFixed(1)}<span class="iq-label">FSIQ</span></div>
+      <div class="iq-dims">${DIMS.map(d=>{
+        const v=iq[d]||0;
+        return '<div class="iq-row"><span>'+d.replace(/_/g,' ')+'</span><span>'+v.toFixed(3)+'</span><div class="iq-bar"><div class="iq-fill" style="width:'+(v*100).toFixed(0)+'%;background:'+sc(v)+'"></div></div></div>';
+      }).join('')}</div>
+    </div>
+    <div class="card compact-card">
+      <h2>Yudai Security <span class="dim" style="font-weight:400">— ${(comp||[]).filter(c=>c.passed).length}/${(comp||[]).length}</span></h2>
+      <div class="comp-rules">${(comp||[]).map(c=>'<div class="comp-rule '+(c.passed?'pass':'fail')+'"><div class="comp-badge '+(c.passed?'badge-pass':'badge-fail')+'">'+(c.passed?'PASS':'FAIL')+'</div><span>'+(c.rule||'').replace(/_/g,' ')+'</span></div>').join('')}</div>
+      <div class="comp-stats"><span>${y.scan_count||0} scans</span><span>${y.total_findings||0} findings</span><span>${(y.last_scan_time_ago_secs||0).toFixed(0)}s ago</span></div>
+    </div>
+    <div class="card">
+      <h2>Darwin</h2>
+      <div class="darwin-row"><span class="num">${gen.toLocaleString()}</span><span>generations${h._gen_delta?' <span class="green">+'+h._gen_delta+'</span>':''}</span></div>
+      <div class="darwin-row"><span class="num">${pop.toLocaleString()}</span><span>population${h._pop_delta?' <span class="green">+'+h._pop_delta+'</span>':''}</span></div>
+      <div class="darwin-row"><span class="num">${fit.toFixed(3)}</span><span>fitness</span></div>
+      <div class="progress-bar"><div class="progress-fill" style="width:${(Math.min(fit,1)*100).toFixed(0)}%;background:var(--cyan)"></div></div>
+    </div>
+    <div class="card">
+      <h2>Integrity</h2>
+      <div class="grid-2col">
+        <div><div class="num">${imm.threats_detected||0}</div><span class="dim">threats</span></div>
+        <div><div class="num">${serr.total_errors||0}</div><span class="dim">errors</span></div>
+        <div><div class="num">${ent.total_entropy||0}</div><span class="dim">entropy</span></div>
+        <div><div class="num">${(sn.cpu_load||0).toFixed(2)}</div><span class="dim">cpu</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Record</h2>
+      <div class="grid-2col">
+        <div><div class="num">${(tm.records||0).toLocaleString()}</div><span class="dim">time records</span></div>
+        <div><div class="num">${(kpi.total_inference_calls||0).toLocaleString()}</div><span class="dim">inferences</span></div>
+        <div><div class="num">${(ticksTotal).toLocaleString()}</div><span class="dim">total ticks</span></div>
+        <div><div class="num">${Math.round(sn.memory_mb||0)} MB</div><span class="dim">memory</span></div>
+      </div>
+    </div>
+    <div class="card bt-card">
+      <h2>Mesh Capabilities</h2>
+      <div class="bt-grid">${[
+        'MAIPS Protocol > peer discovery & messaging',
+        'Raft CRDT Consensus > conflict-free replicated data',
+        'TLS Transport > end-to-end encrypted',
+        'Quorum-based Decisions > distributed agreement',
+        'Auto Peer Discovery > join without config',
+        'Partition Tolerance > network split survival',
+        'State Replication > eventual consistency',
+        'Live Node Topology > automatic mesh mapping',
+        'Federated Kernels > cross-node capability sharing',
+        'Unified Tick Space > synchronized execution',
+      ].map((b,i)=>'<div class="bt-item"><span class="bt-num">'+String(i+1).padStart(2,'0')+'</span>'+
+        b.replace('>','<span class="dim">—</span> ')+'</div>').join('')}</div>
+    </div>
+    <div class="footer">
+      AIGON Mesh Federation · Runtime v2 · Control Plane · ${fsiq.toFixed(1)} FSIQ
+      <div class="dim" style="margin-top:4px;font-size:12px">
+        Node: ${(h.node_id||'').slice(0,16)} · Peers: ${mesh.peer_count||0} · Quorum: ${mesh.has_quorum?'YES':'NO'}
+      </div>
+    </div>
+  `;
+}
+function sum(a){let s=0;for(let i=0;i<a.length;i++)s+=a[i];return s}
+function fmt(s){const d=Math.floor(s/86400);s%=86400;const h=Math.floor(s/3600);s%=3600;const m=Math.floor(s/60);s%=60;return d+'d '+h+'h '+m+'m '+s+'s'}
+fetchData();setInterval(fetchData,5000);
+</script>
+</body>
+</html>

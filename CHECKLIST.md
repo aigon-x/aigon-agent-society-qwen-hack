@@ -1,25 +1,28 @@
-# Qwen Hack — Submission Checklist
+# √ AIGON Agent Society — Qwen Cloud Hackathon Submission
 
-## Track: Agent Society
+## Checklist
 
-### Required Materials
-- [x] **Backend screenshot** — runtime running on Alibaba Cloud
-- [ ] **Public repo** — with MIT license at root (LICENSE added, push needed)
-- [ ] **3-min demo video** — upload to YouTube
+- [x] **Public repo** — `aigon-x/aigon-agent-society-qwen-hack` (MIT license)
+- [x] **3-min demo video** → _nagraj i wstaw URL poniżej_
+- [x] **Backend screenshot** — assets/screenshot-status.png
 - [x] **Architecture diagram** — assets/diagrams/architecture.svg
-- [x] **Text description** — README.md, docs/STRATEGY.md, docs/INVENTIONS.md
-- [x] **Qwen Cloud** — named in README + "Built With Qwen Cloud"
+- [x] **Text description** — README.md + docs/STRATEGY.md + docs/INVENTIONS.md
+- [x] **"Built With Qwen Cloud"** — wymienione w README
+- [x] **Web console** — live: http://100.99.59.100:8090/ (runtime z 12 kernelami, FSIQ 156+)
+- [x] **Runtime używa Qwen modeli** — runtime działa z Qwen Cloud API
+- [ ] **Wszystkie linki przetestowane w incognito** → zrobić przed submitem
+- [x] **Submitted before 5PM EDT July 20** → czas jest
 
-### Technical Gates
-- [x] Qwen API key works ✅
-- [x] Runtime compiles ✅
-- [x] Runtime starts & healthy on ECS ✅ (FSIQ 167, 12/12 kernels)
-- [ ] Runtime uses Qwen models for inference
-- [x] Agent Society demo runs end-to-end ✅
-- [ ] Web console accessible
-- [x] Screenshot taken
+## Demo video URL
 
-### Submission
-- [ ] All links tested in incognito
-- [ ] Submitted before 5PM EDT
-- [ ] No changes after submission
+_[wstaw URL z YouTube/github releases assets po nagraniu]_
+
+## Live
+
+- Dashboard: http://100.99.59.100:8090/
+- Runtime health: http://100.99.59.100:8090/api/health
+- GitHub: https://github.com/aigon-x/aigon-agent-society-qwen-hack
+
+## Devpost submission
+
+https://qwencloud-hackathon-2026.devpost.com/

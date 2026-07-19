@@ -1,0 +1,5 @@
+# AIGON Agent Society (Qwen Hack)
+.env
+__pycache__/
+*.pyc
+aigon-agent-qwen-society

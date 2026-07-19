@@ -1,0 +1,6 @@
+# ── AIGON Agent Society (Qwen Hack) — Standalone Configuration ───────
+role: "worker"
+listen_addr: "0.0.0.0:7000"
+tick_interval_ms: 1000
+heartbeat_interval_ms: 5000
+data_dir: "/opt/aigon-hack/data"

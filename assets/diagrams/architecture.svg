@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" font-family="'SF Mono', 'Cascadia Code', 'JetBrains Mono', monospace">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a0e1a"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+    <linearGradient id="qwen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#4F46E5"/>
+      <stop offset="100%" stop-color="#7C3AED"/>
+    </linearGradient>
+    <linearGradient id="society" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#10B981"/>
+    </linearGradient>
+    <linearGradient id="mesh" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  <text x="600" y="40" text-anchor="middle" fill="#fff" font-size="20" font-weight="bold">AIGON-X Agent Society — Architecture</text>
+
+  <!-- Layer 1: Qwen Cloud MaaS -->
+  <rect x="400" y="60" width="400" height="100" rx="12" fill="url(#qwen)" opacity="0.9"/>
+  <text x="600" y="95" text-anchor="middle" fill="#fff" font-size="16" font-weight="bold">☁ Qwen Cloud MaaS</text>
+  <text x="600" y="118" text-anchor="middle" fill="#c4b5fd" font-size="12">qwen3.7-max · qwq-plus · qwen-vl-max</text>
+  <text x="600" y="138" text-anchor="middle" fill="#c4b5fd" font-size="12">text-embedding-v4 · qwen-image-2.0-pro</text>
+
+  <!-- Arrow: Qwen → Runtime -->
+  <line x1="600" y1="160" x2="600" y2="210" stroke="#6366f1" stroke-width="2" stroke-dasharray="6,3"/>
+  <polygon points="600,220 594,210 606,210" fill="#6366f1"/>
+
+  <!-- Layer 2: Runtime Engine -->
+  <rect x="150" y="220" width="900" height="140" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="600" y="248" text-anchor="middle" fill="#94a3b8" font-size="13" font-weight="bold">AIGON-X Runtime v2 — Agent Society Engine</text>
+
+  <!-- Kernel boxes - 12 kernels in 3 rows of 4 -->
+  <g font-size="10" text-anchor="middle">
+    <!-- Row 1 -->
+    <rect x="170" y="265" width="95" height="35" rx="6" fill="#0ea5e9" opacity="0.8"/>
+    <text x="217" y="286" fill="#fff" font-weight="bold">🧠 Nano</text>
+    <text x="217" y="296" fill="#e0f2fe" font-size="8">200 workers</text>
+
+    <rect x="280" y="265" width="95" height="35" rx="6" fill="#8b5cf6" opacity="0.8"/>
+    <text x="327" y="286" fill="#fff" font-weight="bold">⚡ Curie</text>
+    <text x="327" y="296" fill="#ede9fe" font-size="8">Cognition</text>
+
+    <rect x="390" y="265" width="95" height="35" rx="6" fill="#f59e0b" opacity="0.8"/>
+    <text x="437" y="286" fill="#fff" font-weight="bold">📋 Planck</text>
+    <text x="437" y="296" fill="#fef3c7" font-size="8">Plans: 222</text>
+
+    <rect x="500" y="265" width="95" height="35" rx="6" fill="#10b981" opacity="0.8"/>
+    <text x="547" y="286" fill="#fff" font-weight="bold">💾 Freud</text>
+    <text x="547" y="296" fill="#d1fae5" font-size="8">Memory LTS</text>
+
+    <!-- Row 2 -->
+    <rect x="170" y="310" width="95" height="35" rx="6" fill="#06b6d4" opacity="0.8"/>
+    <text x="217" y="331" fill="#fff" font-weight="bold">🔬 Galileo</text>
+    <text x="217" y="341" fill="#cffafe" font-size="8">Reviews: 223</text>
+
+    <rect x="280" y="310" width="95" height="35" rx="6" fill="#ef4444" opacity="0.8"/>
+    <text x="327" y="331" fill="#fff" font-weight="bold">🤝 Yairoslaw</text>
+    <text x="327" y="341" fill="#fee2e2" font-size="8">Consensus</text>
+
+    <rect x="390" y="310" width="95" height="35" rx="6" fill="#14b8a6" opacity="0.8"/>
+    <text x="437" y="331" fill="#fff" font-weight="bold">📚 Hawking</text>
+    <text x="437" y="341" fill="#ccfbf1" font-size="8">Facts: 223</text>
+
+    <rect x="500" y="310" width="95" height="35" rx="6" fill="#a855f7" opacity="0.8"/>
+    <text x="547" y="331" fill="#fff" font-weight="bold">🧩 Knowledge</text>
+    <text x="547" y="341" fill="#f3e8ff" font-size="8">5 sources</text>
+
+    <!-- Row 3 -->
+    <rect x="610" y="265" width="95" height="35" rx="6" fill="#ec4899" opacity="0.8"/>
+    <text x="657" y="286" fill="#fff" font-weight="bold">✅ Turing</text>
+    <text x="657" y="296" fill="#fce7f3" font-size="8">222 checks</text>
+
+    <rect x="720" y="265" width="95" height="35" rx="6" fill="#f97316" opacity="0.8"/>
+    <text x="767" y="286" fill="#fff" font-weight="bold">🎯 Nash</text>
+    <text x="767" y="296" fill="#ffedd5" font-size="8">Decisions</text>
+
+    <rect x="830" y="265" width="95" height="35" rx="6" fill="#22c55e" opacity="0.8"/>
+    <text x="877" y="286" fill="#fff" font-weight="bold">🧬 Darwin</text>
+    <text x="877" y="296" fill="#dcfce7" font-size="8">223 gen</text>
+
+    <rect x="940" y="265" width="95" height="35" rx="6" fill="#64748b" opacity="0.8"/>
+    <text x="987" y="286" fill="#fff" font-weight="bold">🛡️ Yudai</text>
+    <text x="987" y="296" fill="#f1f5f9" font-size="8">Security</text>
+  </g>
+
+  <!-- Arrow: Runtime → Mesh -->
+  <line x1="600" y1="360" x2="600" y2="405" stroke="#94a3b8" stroke-width="2"/>
+  <polygon points="600,415 594,405 606,405" fill="#94a3b8"/>
+
+  <!-- Layer 3: Mesh Federation -->
+  <rect x="150" y="415" width="900" height="120" rx="12" fill="url(#mesh)" opacity="0.85"/>
+  <text x="600" y="445" text-anchor="middle" fill="#fff" font-size="15" font-weight="bold">🌐 4-Node Mesh Federation — Raft CRDT Consensus</text>
+
+  <g font-size="11" text-anchor="middle">
+    <rect x="180" y="460" width="190" height="55" rx="8" fill="#78350f" opacity="0.7"/>
+    <text x="275" y="482" fill="#fde68a" font-weight="bold">Master (local)</text>
+    <text x="275" y="498" fill="#fef3c7" font-size="9">prim.aigon.dev:7000</text>
+
+    <rect x="395" y="460" width="190" height="55" rx="8" fill="#78350f" opacity="0.7"/>
+    <text x="490" y="482" fill="#fde68a" font-weight="bold">Worker 1</text>
+    <text x="490" y="498" fill="#fef3c7" font-size="9">sec.aigon.dev:7000</text>
+
+    <rect x="610" y="460" width="190" height="55" rx="8" fill="#78350f" opacity="0.7"/>
+    <text x="705" y="482" fill="#fde68a" font-weight="bold">Worker 2</text>
+    <text x="705" y="498" fill="#fef3c7" font-size="9">100.110.245.84:7000</text>
+
+    <rect x="825" y="460" width="190" height="55" rx="8" fill="#78350f" opacity="0.7"/>
+    <text x="920" y="482" fill="#fde68a" font-weight="bold">Worker 3 (Alibaba)</text>
+    <text x="920" y="498" fill="#fef3c7" font-size="9">ECS ap-southeast-1</text>
+  </g>
+
+  <!-- Arrow: Mesh → Metrics -->
+  <line x1="600" y1="535" x2="600" y2="575" stroke="#94a3b8" stroke-width="2"/>
+  <polygon points="600,585 594,575 606,575" fill="#94a3b8"/>
+
+  <!-- Layer 4: IQ + Metrics -->
+  <rect x="200" y="585" width="800" height="80" rx="12" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+  <text x="600" y="615" text-anchor="middle" fill="#facc15" font-size="14" font-weight="bold">📊 System IQ: 188 FSIQ · Uptime: 938s · 0 Errors · 100% SLA</text>
+  <line x1="300" y1="628" x2="900" y2="628" stroke="#334155" stroke-width="0.5"/>
+  <text x="600" y="650" text-anchor="middle" fill="#94a3b8" font-size="11">Immune System: Healthy · Entropy: 0.0 · Self-Improvement: Active · 24 Active Workers</text>
+
+  <!-- Arrow: Metrics → Footer -->
+  <line x1="600" y1="665" x2="600" y2="700" stroke="#334155" stroke-width="1"/>
+
+  <!-- Footer -->
+  <rect x="250" y="700" width="700" height="40" rx="8" fill="#1e293b" stroke="#334155" stroke-width="0.5"/>
+  <text x="600" y="725" text-anchor="middle" fill="#64748b" font-size="11">Built with Qwen Cloud · Rust · Axum · Tokio · Alibaba Cloud ECS · MIT License</text>
+
+  <!-- Side annotation: what makes this an Agent Society -->
+  <rect x="1050" y="220" width="140" height="400" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+  <text x="1120" y="250" text-anchor="middle" fill="#10b981" font-size="11" font-weight="bold">Agent Society</text>
+  <line x1="1070" y1="260" x2="1170" y2="260" stroke="#334155" stroke-width="0.5"/>
+  <text x="1120" y="285" text-anchor="middle" fill="#94a3b8" font-size="9">12 specialized agents</text>
+  <text x="1120" y="305" text-anchor="middle" fill="#94a3b8" font-size="9">Concurrent execution</text>
+  <text x="1120" y="325" text-anchor="middle" fill="#94a3b8" font-size="9">Raft consensus</text>
+  <text x="1120" y="345" text-anchor="middle" fill="#94a3b8" font-size="9">Self-healing</text>
+  <text x="1120" y="365" text-anchor="middle" fill="#94a3b8" font-size="9">Genetic evolution</text>
+  <text x="1120" y="385" text-anchor="middle" fill="#94a3b8" font-size="9">IQ measured: 188</text>
+  <text x="1120" y="405" text-anchor="middle" fill="#94a3b8" font-size="9">Zero downtime</text>
+  <text x="1120" y="425" text-anchor="middle" fill="#94a3b8" font-size="9">Memory LTS</text>
+  <text x="1120" y="445" text-anchor="middle" fill="#94a3b8" font-size="9">Knowledge fabric</text>
+  <text x="1120" y="465" text-anchor="middle" fill="#94a3b8" font-size="9">Security audit</text>
+  <text x="1120" y="485" text-anchor="middle" fill="#94a3b8" font-size="9">Time machine</text>
+  <text x="1120" y="505" text-anchor="middle" fill="#94a3b8" font-size="9">Cognitive ISA</text>
+  <text x="1120" y="525" text-anchor="middle" fill="#94a3b8" font-size="9">Semantic ABI</text>
+  <line x1="1070" y1="540" x2="1170" y2="540" stroke="#334155" stroke-width="0.5"/>
+  <text x="1120" y="565" text-anchor="middle" fill="#facc15" font-size="10" font-weight="bold">Production-proven</text>
+  <text x="1120" y="585" text-anchor="middle" fill="#facc15" font-size="10" font-weight="bold">Open source</text>
+</svg>

@@ -15,7 +15,7 @@ import urllib.request
 RUNTIME_URL = os.environ.get("RUNTIME_URL", "http://localhost:7000")
 QWEN_API_KEY = os.environ.get("QWEN_API_KEY", "")
 QWEN_ENDPOINT = os.environ.get("QWEN_ENDPOINT",
-    "https://ws-h3ayxryayp3b7ad5.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1")
+    "https://<your-workspace-id>.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1")
 
 
 def runtime_get(path):

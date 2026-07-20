@@ -37,7 +37,7 @@ ENTRYPOINT ["aigon-runtime"]
 ```toml
 [llm]
 provider = "openai-compatible"
-api_url = "https://ws-h3ayxryayp3b7ad5.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1"
+api_url = "https://<your-workspace-id>.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1"
 api_key = "${QWEN_API_KEY}"
 model = "qwen3.7-max"
 ```

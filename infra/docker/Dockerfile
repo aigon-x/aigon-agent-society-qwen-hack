@@ -16,7 +16,7 @@ EXPOSE 7000 8080
 ENV RUST_LOG=info
 ENV AIGON_MODE=standalone
 ENV QWEN_API_KEY=""
-ENV QWEN_ENDPOINT="https://ws-h3ayxryayp3b7ad5.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1"
+ENV QWEN_ENDPOINT="https://<your-workspace-id>.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1"
 ENV QWEN_MODEL="qwen3.7-max"
 
 HEALTHCHECK --interval=10s --timeout=5s --retries=3 \

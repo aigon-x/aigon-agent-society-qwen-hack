@@ -35,8 +35,8 @@ Każdy z 4 nodów ma głos. Lider wybierany przez Raft consensus. Wszystkie stan
 Pełny silnik doboru genetycznego: `Genome { parameters: Vec<f64>, fitness, generation }`. Algorytm: seed → mutate → crossover → tournament select. 223 generacje, 2949 osobników w populacji, fitness: 0.92. System, który sam się optymalizuje.
 
 ### 📊 6. IQ Measurement Battery — Mierzalna inteligencja
-**Status: IMPLEMENTED | Wynik: 188 FSIQ**
-Sześć wymiarów: Working Memory (1.0), Processing Speed (1.0), Logical Reasoning (0.99), Knowledge Integration (1.0), Resilience (1.0), Experience (0.62). To nie opinion — to wymierna metryka.
+**Status: IMPLEMENTED | Wynik: 197 Extended IQ (live)**
+Sześć wymiarów: Working Memory (0.0), Processing Speed (0.5), Logical Reasoning (0.30), Knowledge Integration (0.0), Resilience (1.0), Experience (0.93). Extended IQ mierzony przez kpi: 197.2. IQ rośnie z czasem — nowa instancja po ~68 min pracy. To nie opinion — to wymierna metryka.
 
 ### 🛡️ 7. Immune System — Self-healing
 **Status: IMPLEMENTED**

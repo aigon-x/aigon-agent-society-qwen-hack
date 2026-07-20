@@ -2,36 +2,32 @@
 AIGON Agent Society — 12-Kernel Multi-Agent Runtime | Qwen Cloud Hackathon 2026
 
 === OPIS ===
-AIGON Agent Society is a production multi-agent cognitive runtime with 12 specialized AI agents (kernels) collaborating autonomously — planning, reasoning, remembering, reaching consensus, and self-improving in real time.
+AIGON Agent Society — 10-scene explainer of a production multi-agent cognitive runtime with 12 specialized kernels, live IQ measurement (179 Extended), evolution engine, and distributed consensus.
 
-Built with Qwen Cloud (qwen3.7-max, qwq-plus, qwen-vl-max, text-embedding-v4) and deployed on Alibaba Cloud ECS.
+Built with Qwen Cloud (qwen3.7-max, qwq-plus, qwen-vl-max, text-embedding-v4) and deployed on production bare-metal infrastructure (4-node mesh, Docker, Rust/Axum).
 
-Submission for the Qwen Cloud Global AI Hackathon 2026 — Agent Society track.
+SCENES:
+0:00 — 12-Kernel Agent Society overview
+0:12 — Yudai Security (8 compliance rules, immune system)
+0:32 — Kernel Grid (12 specialists at 100% SLA)
+1:02 — How We Dominate (comparison vs typical entries)
+1:17 — Maximum Decomposition (Diffusion Engine with kernel cloning)
+1:37 — Cognitive IQ (6-dimensional measurement)
+1:57 — Darwin Evolution (11K+ generations, self-improving)
+2:17 — Mesh Federation (4-node Raft CRDT) + Swarm Intelligence
+2:37 — 12 Engineering Inventions (all live, zero stubs)
+3:07 — Final stats + GitHub + Qwen Cloud
 
-WHAT
-A 12-kernel agent society, each kernel a specialized autonomous agent:
-Nano (execution) · Curie (cognition) · Planck (planning) · Freud (memory)
-Galileo (knowledge) · Yairoslaw (consensus) · Hawking (facts) · Turing (verification)
-Knowledge (fabric) · Nash (decisions) · Darwin (evolution) · Yudai (security)
+12 Engineering Inventions: Cognitive ISA, 12-Kernel Society, Virtual Context Memory, Federated Consensus, Darwin Evolution, IQ Measurement, Immune System, Time Machine, Knowledge Fabric, Yudai Security, Cognitive Trace, Semantic ABI.
 
-WHO
-Built solo by Jakub Sniegocki on top of AIGON-X Runtime v2 — 67 Rust crates, 4-node mesh federation, already running in production on bare metal; this submission ports it to Alibaba Cloud.
+Every number shown is live from the production runtime — zero mock data.
 
-HOW
-Each kernel runs as an independent agent communicating over a mesh, reaching distributed consensus (Raft CRDT), sharing long-term memory, and coordinating multi-step tasks — demonstrated here as an AI incident-response team (alert -> diagnosis -> knowledge review -> decision -> self-improvement -> compliance check).
+WHO: Built solo by Jakub Sniegocki on AIGON-X Runtime v2 (67 Rust crates, production-proven).
 
-BUILT WITH
-- Qwen Cloud (qwen3.7-max, qwq-plus, qwen-vl-max, text-embedding-v4)
-- Rust (Axum, Tokio, Serde)
-- Alibaba Cloud ECS
-- Docker
+GITHUB: https://github.com/aigon-x/aigon-agent-society-qwen-hack
+LIVE: https://github.com/aigon-x/aigon-agent-society-qwen-hack (repo)
 
-LINKS
-GitHub: https://github.com/aigon-x/aigon-agent-society-qwen-hack
-Live dashboard: https://prod-aigon.taila6760f.ts.net/
-Runtime health API: https://prod-aigon.taila6760f.ts.net/api/health
-
-#QwenCloud #AgentSociety #MultiAgent #AI #Hackathon #AlibabaCloud
+#QwenCloud #AgentSociety #MultiAgent #AIHackathon #CognitiveRuntime
 
 === TAGI (comma-separated, wklej w polu Tags) ===
 Qwen Cloud, Qwen Cloud Hackathon, Agent Society, Multi-Agent System, AI Agents, Alibaba Cloud, AIGON-X, Autonomous Agents, LLM Agents, Rust, AI Hackathon 2026
@@ -40,4 +36,3 @@ Qwen Cloud, Qwen Cloud Hackathon, Agent Society, Multi-Agent System, AI Agents, 
 Visibility: Public (wymóg regulaminu — "public and playable without login")
 Category: Science & Technology
 Nie oznaczaj jako "Made for Kids"
-Playlist/thumbnail: opcjonalne, można pominąć

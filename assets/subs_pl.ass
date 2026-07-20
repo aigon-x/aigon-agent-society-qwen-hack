@@ -1,0 +1,27 @@
+[Script Info]
+Title: AIGON Agent Society Bilingual Subtitles
+ScriptType: v4.00+
+PlayResX: 1280
+PlayResY: 720
+WrapStyle: 0
+
+[V4+ Styles]
+; EN style
+Style: EN,Arial,16,&H00FFFFFF,&H000000FF,&H00000000,&H80000000,0,0,0,0,100,100,0,0,1,1,1,2,10,10,10,1
+; CN style (smaller, grey below EN)
+Style: CN,Noto Serif CJK SC,14,&H00CCCCCC,&H000000FF,&H00000000,&H80000000,0,0,0,0,100,100,0,0,1,1,1,2,10,25,10,1
+; PL style
+Style: PL,Arial,16,&H00AADDFF,&H000000FF,&H00000000,&H80000000,0,0,0,0,100,100,0,0,1,1,1,2,10,10,10,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.20,0:00:12.29,EN,,0,0,0,,[PL] AIGON Agent Society — dwanaście wyspecjalizowanych jąder AI. Qwen Cloud, Alibaba Cloud, produkcyjna inteligencja rozproszona.
+Dialogue: 0,0:00:12.70,0:00:32.29,EN,,0,0,0,,[PL] Yudai Security: osiem reguł compliance, zero błędów, system immunologiczny zdrowy.
+Dialogue: 0,0:00:32.70,0:01:02.29,EN,,0,0,0,,[PL] Dwanaście jąder — Nano, Curie, Planck, Freud, Galileo, Yairoslaw, Hawking, Turing, Knowledge, Nash, Darwin, Yudai. Wszystkie na SLA 100%.
+Dialogue: 0,0:01:02.70,0:01:17.29,EN,,0,0,0,,[PL] Jak miażdżymy konkurencję — dziesięć wymiarów przewagi. 12 kernel vs 1 agent loop. Raft CRDT vs brak. Darwin vs brak. IQ 179 vs tylko gadanie.
+Dialogue: 0,0:01:17.70,0:01:37.29,EN,,0,0,0,,[PL] Maksymalna dekompozycja — silnik dyfuzji, N równoległych kandydatów, 6 krytyków, łączenie. Prawdziwe równoległe wykonanie przez tokio spawn.
+Dialogue: 0,0:01:37.70,0:01:57.29,EN,,0,0,0,,[PL] IQ Poznawcze — sześć wymiarów. IQ pełnej skali 186, rozszerzone IQ 179. Mierzalna inteligencja.
+Dialogue: 0,0:01:57.70,0:02:17.29,EN,,0,0,0,,[PL] Ewolucja Darwina — 11 500+ pokoleń, 150 000+ osobników. Sprawność 0.912. System sam się optymalizuje.
+Dialogue: 0,0:02:17.70,0:02:37.29,EN,,0,0,0,,[PL] Federacja mesh — 4 węzły, konsensus Raft CRDT, 12 jąder jako jeden rój. Turing: 11 600+ kontroli.
+Dialogue: 0,0:02:37.70,0:03:07.29,EN,,0,0,0,,[PL] 12 wynalazków inżynieryjnych — od Cognitive ISA po semantyczne ABI. Zero atrap, wszystko w produkcji.
+Dialogue: 0,0:03:07.70,0:03:17.29,EN,,0,0,0,,[PL] AIGON Agent Society z Qwen Cloud. 12/12 kernel, IQ 179, 140 000+ ticków, zero błędów. GPU, Rust, Axum, Tokio. Otwarte źródło.

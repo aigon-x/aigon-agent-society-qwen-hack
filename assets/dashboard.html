@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIGON Agent Society — Cognitive Runtime Live Dashboard</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%236366f1%22>A</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#06080a;color:#c8d0d8;font-family:'Inter',system-ui,-apple-system,sans-serif;overflow-x:hidden;line-height:1.6}
+
+/* Loading Overlay */
+#loading{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#06080a;overflow:hidden;transition:opacity .8s ease,transform .8s ease}
+#loading.hidden{opacity:0;transform:scale(1.05);pointer-events:none}
+.loading-bg{position:absolute;inset:0;opacity:.06;background:radial-gradient(ellipse 500px 400px at 30% 40%,rgba(59,130,246,.08) 0%,transparent 70%),radial-gradient(ellipse 400px 300px at 80% 60%,rgba(99,102,241,.06) 0%,transparent 70%);animation:loading-pulse 4s ease-in-out infinite}
+@keyframes loading-pulse{0%,100%{opacity:.06}50%{opacity:.1}}
+.loading-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(59,130,246,.01) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,.01) 1px,transparent 1px);background-size:60px 60px;animation:loading-scroll 8s linear infinite}
+@keyframes loading-scroll{0%{transform:translate(0,0)}100%{transform:translate(60px,60px)}}
+.loading-content{position:relative;z-index:1;text-align:center;max-width:420px}
+.loading-logo{font-size:2.2rem;font-weight:800;letter-spacing:-.04em;background:linear-gradient(135deg,#e8ecf0 0%,#6366f1 50%,#e8ecf0 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.75rem}
+.loading-sub{font-size:.85rem;color:#8899aa;margin-bottom:1.5rem;font-weight:400;letter-spacing:.02em}
+.loading-bar-track{width:100%;height:3px;background:#1a1f26;border-radius:2px;overflow:hidden;margin-bottom:.75rem}
+.loading-bar-fill{height:100%;width:5%;background:linear-gradient(90deg,#3b82f6,#6366f1,#a855f7,#3b82f6);background-size:300% 100%;border-radius:2px;animation:loading-shimmer 3s linear infinite;transition:width .4s ease}
+@keyframes loading-shimmer{0%{background-position:0% 50%}100%{background-position:300% 50%}}
+.loading-elapsed{font-size:.7rem;color:#4a5a6a;font-variant-numeric:tabular-nums}
+.loading-elapsed span{color:#6b7a8a;font-weight:600}
+
+/* Hero */
+.hero{position:relative;min-height:280px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:linear-gradient(135deg,#06080a 0%,#0a0e14 40%,#0d1420 100%);margin-bottom:2rem;padding:3rem 1rem 2rem}
+.hero-bg{position:absolute;inset:0;opacity:.08;background:radial-gradient(ellipse 600px 400px at 20% 50%,rgba(59,130,246,.06) 0%,transparent 70%),radial-gradient(ellipse 500px 300px at 80% 30%,rgba(99,102,241,.04) 0%,transparent 70%)}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(59,130,246,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,.015) 1px,transparent 1px);background-size:40px 40px}
+.hero-content{position:relative;text-align:center;z-index:1}
+.hero-badge{display:inline-block;background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.25);border-radius:100px;padding:.3rem 1rem;font-size:.7rem;font-weight:600;color:#60a5fa;text-transform:uppercase;letter-spacing:.12em;margin-bottom:1rem}
+.hero h1{font-size:2.6rem;font-weight:800;letter-spacing:-.04em;background:linear-gradient(135deg,#e8ecf0 0%,#8a9aaa 50%,#e8ecf0 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.15;margin-bottom:.5rem}
+.hero .subtitle{font-size:.95rem;color:#6b7a8a;font-weight:400;margin-bottom:.75rem}
+.hero .live-badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2);border-radius:100px;padding:.25rem .75rem .25rem .5rem;font-size:.75rem;color:#4ade80}
+.hero .live-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;animation:pulse-dot 2s ease-in-out infinite}
+
+/* Top Stats */
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem;padding:0 1rem}
+.stat-card{background:#11161c;border:1px solid #1e2530;border-radius:12px;padding:1.5rem;position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:12px 12px 0 0}
+.stat-card:nth-child(1)::before{background:linear-gradient(90deg,#3b82f6,#6366f1)}
+.stat-card:nth-child(2)::before{background:linear-gradient(90deg,#22c55e,#16a34a)}
+.stat-card:nth-child(3)::before{background:linear-gradient(90deg,#a855f7,#d946ef)}
+.stat-card:nth-child(4)::before{background:linear-gradient(90deg,#f59e0b,#ef4444)}
+.stat-label{font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:#5a6a7a;margin-bottom:.35rem}
+.stat-value{font-size:2.2rem;font-weight:800;color:#e8ecf0;letter-spacing:-.03em;transition:color .3s}
+.stat-value.loading{color:#2a3040}
+.stat-sub{font-size:.7rem;color:#4a5a6a;margin-top:.2rem}
+.count-up{display:inline-block}
+
+/* Section */
+.section{padding:0 1rem;margin-bottom:2.5rem;opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.section.visible{opacity:1;transform:translateY(0)}
+.section:nth-child(2){transition-delay:.1s}
+.section:nth-child(3){transition-delay:.2s}
+.section:nth-child(4){transition-delay:.3s}
+.section:nth-child(5){transition-delay:.4s}
+.section:nth-child(6){transition-delay:.5s}
+.section:nth-child(7){transition-delay:.6s}
+.section-title{display:flex;align-items:center;gap:.75rem;font-size:1.05rem;font-weight:700;color:#e8ecf0;margin-bottom:1rem;padding-left:0}
+.section-title .accent{width:3px;height:20px;border-radius:2px}
+.section-title .accent.iq{background:#6366f1}
+.section-title .accent.kernel{background:#22c55e}
+.section-title .accent.cap{background:#3b82f6}
+.section-title .accent.inv{background:#a855f7}
+.section-title .accent.sys{background:#f59e0b}
+.section-subtitle{font-size:.8rem;color:#5a6a7a;font-weight:400;margin-left:auto}
+
+/* IQ Radar */
+.iq-container{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem}
+.iq-radar{background:#11161c;border:1px solid #1e2530;border-radius:12px;padding:1rem;height:320px}
+.iq-radar-full{grid-column:1/-1;height:380px}
+.iq-metrics{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.iq-metric{background:#11161c;border:1px solid #1e2530;border-radius:8px;padding:.75rem;display:flex;align-items:center;gap:.75rem}
+.iq-metric .bar{flex:1;height:6px;background:#1a1f26;border-radius:3px;overflow:hidden}
+.iq-metric .bar-fill{height:100%;border-radius:3px;transition:width 1s ease}
+.iq-metric .label{font-size:.7rem;color:#5a6a7a;min-width:85px}
+.iq-metric .val{font-size:.85rem;font-weight:700;color:#e8ecf0;min-width:35px;text-align:right}
+
+/* Kernel Grid */
+.kernel-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.75rem}
+.kernel-card{background:#11161c;border:1px solid #1e2530;border-radius:10px;padding:1rem;position:relative;overflow:hidden;transition:border-color .2s}
+.kernel-card:hover{border-color:#2a3848}
+.kernel-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%}
+.kernel-card.domain-exec::before{background:#3b82f6}
+.kernel-card.domain-cog::before{background:#6366f1}
+.kernel-card.domain-mem::before{background:#22c55e}
+.kernel-card.domain-sec::before{background:#ef4444}
+.kernel-card.domain-evo::before{background:#a855f7}
+.kernel-card.domain-strat::before{background:#f59e0b}
+.kernel-card.domain-fact::before{background:#14b8a6}
+.kernel-card.domain-cons::before{background:#f97316}
+.kernel-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem;padding-left:.5rem}
+.kernel-name{font-weight:600;font-size:.85rem;color:#e8ecf0;display:flex;align-items:center;gap:.5rem}
+.kernel-icon{width:22px;height:22px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0}
+.kernel-status{font-size:.6rem;font-weight:700;text-transform:uppercase;padding:2px 8px;border-radius:100px;letter-spacing:.05em}
+.kernel-status.online{background:rgba(34,197,94,.12);color:#4ade80}
+.kernel-status.error{background:rgba(239,68,68,.12);color:#f87171}
+.kernel-body{padding-left:.5rem;display:grid;grid-template-columns:1fr 1fr;gap:.2rem}
+.kernel-detail{font-size:.7rem;color:#5a6a7a}
+.kernel-detail span{color:#c8d0d8;font-weight:500}
+.kernel-domain{font-size:.6rem;color:#4a5a6a;text-transform:uppercase;letter-spacing:.08em;padding-left:.5rem;margin-top:.4rem}
+
+/* Network Graph - 3D */
+.network-container{background:#11161c;border:1px solid #1e2530;border-radius:12px;margin-bottom:2rem;padding:0;overflow:hidden;min-height:400px;position:relative}
+.network-container canvas{display:block;width:100%!important;height:auto!important}
+.network-label{position:absolute;bottom:1rem;left:1rem;font-size:.65rem;color:#4a5a6a;pointer-events:none;font-weight:500;letter-spacing:.04em}
+
+/* Inventions with SVG icons */
+.inventions{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:.75rem}
+.invention{background:#11161c;border:1px solid #1e2530;border-radius:10px;padding:1rem;display:flex;gap:.85rem;align-items:flex-start;transition:border-color .2s}
+.invention:hover{border-color:#2a3848}
+.invention-icon{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.invention-body{flex:1}
+.invention .num{font-size:.6rem;font-weight:700;color:#3b82f6;text-transform:uppercase;letter-spacing:.08em}
+.invention .name{font-size:.8rem;font-weight:600;color:#e8ecf0;display:block;margin:.1rem 0 .15rem}
+.invention .desc{font-size:.7rem;color:#5a6a7a;line-height:1.4}
+
+/* Caps */
+.caps{display:flex;flex-wrap:wrap;gap:.4rem}
+.cap{background:#11161c;border:1px solid #1e2530;border-radius:6px;padding:.3rem .65rem;font-size:.7rem;color:#6b7a8a;transition:border-color .2s}
+.cap:hover{border-color:#3b82f6;color:#e8ecf0}
+.cap .id{color:#3b82f6;font-weight:600;margin-right:.3rem}
+
+/* System Grid */
+.sys-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.6rem}
+.sys-card{background:#11161c;border:1px solid #1e2530;border-radius:8px;padding:.7rem}
+.sys-label{font-size:.6rem;color:#4a5a6a;text-transform:uppercase;letter-spacing:.06em}
+.sys-value{font-size:.85rem;color:#c8d0d8;font-weight:500;margin-top:.1rem}
+
+/* Footer */
+footer{text-align:center;padding:2rem 1rem;border-top:1px solid #1a1f26;font-size:.7rem;color:#4a5a6a;display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap}
+footer a{color:#5a6a7a;text-decoration:none;transition:color .2s}
+footer a:hover{color:#8a9aaa}
+
+/* Animations */
+@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fadeUp .5s ease forwards}
+.fade-up:nth-child(1){animation-delay:0s}
+.fade-up:nth-child(2){animation-delay:.1s}
+.fade-up:nth-child(3){animation-delay:.2s}
+.fade-up:nth-child(4){animation-delay:.3s}
+
+/* Nav */
+nav{position:sticky;top:0;z-index:100;background:rgba(6,8,10,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid #1a1f26;padding:.5rem 1rem;display:flex;align-items:center;gap:1.5rem;overflow-x:auto}
+nav a{font-size:.75rem;color:#5a6a7a;text-decoration:none;white-space:nowrap;transition:color .2s;font-weight:500}
+nav a:hover{color:#e8ecf0}
+nav .logo-nav{font-weight:700;color:#e8ecf0;font-size:.85rem;letter-spacing:-.02em;margin-right:auto}
+nav .live-indicator{display:flex;align-items:center;gap:.35rem;font-size:.65rem;color:#4ade80;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+nav .live-indicator .dot{width:5px;height:5px;border-radius:50%;background:#22c55e;animation:pulse-dot 2s ease-in-out infinite}
+
+/* Video embed */
+.video-embed{background:#11161c;border:1px solid #1e2530;border-radius:12px;overflow:hidden;margin-bottom:2rem;position:relative}
+.video-embed video{width:100%;display:block;object-fit:contain;background:#000}
+.video-embed .play-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.3);cursor:pointer;transition:opacity .4s ease}
+.video-embed .play-overlay:hover{background:rgba(0,0,0,.15)}
+.video-embed .play-overlay.hidden{opacity:0;pointer-events:none}
+.video-embed .play-btn{width:64px;height:64px;border-radius:50%;background:rgba(59,130,246,.9);display:flex;align-items:center;justify-content:center;transition:transform .2s,background .2s;animation:play-pulse 2s ease-in-out infinite}
+.video-embed .play-overlay:hover .play-btn{animation:none;transform:scale(1.1);background:#3b82f6}
+.video-embed .play-btn svg{width:24px;height:24px;fill:#fff;margin-left:2px}
+.video-embed .video-label{position:absolute;bottom:1rem;left:1rem;font-size:.7rem;color:rgba(255,255,255,.7);background:rgba(0,0,0,.6);padding:.3rem .7rem;border-radius:6px;z-index:2}
+@keyframes play-pulse{0%,100%{box-shadow:0 0 0 0 rgba(59,130,246,.6)}50%{box-shadow:0 0 0 16px rgba(59,130,246,0)}}
+
+@media(max-width:768px){.stat-grid{grid-template-columns:1fr 1fr}.iq-container{grid-template-columns:1fr}.kernel-grid{grid-template-columns:1fr}.inventions{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- Loading Overlay -->
+<div id="loading">
+  <div class="loading-bg"></div>
+  <div class="loading-grid"></div>
+  <div class="loading-content">
+    <div class="loading-logo">AIGON</div>
+    <div class="loading-sub">establishing connection to kernel society</div>
+    <div class="loading-bar-track"><div class="loading-bar-fill" id="loading-bar"></div></div>
+    <div class="loading-elapsed" id="loading-elapsed"><span id="loading-time">0.0</span>s <span>.</span></div>
+  </div>
+</div>
+
+<nav id="main-nav" style="display:none">
+  <span class="logo-nav">AIGON</span>
+  <a href="#stats">Stats</a>
+  <a href="#iq">IQ</a>
+  <a href="#kernels">Kernels</a>
+  <a href="#network">Network</a>
+  <a href="#inventions">Inventions</a>
+  <a href="#caps">Capabilities</a>
+  <a href="#system">System</a>
+  <a href="#video">Demo</a>
+  <span class="live-indicator"><span class="dot"></span>Live</span>
+</nav>
+
+<div class="hero" id="hero-section" style="display:none">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Qwen Cloud Global AI Hackathon 2026</div>
+    <h1>Multi-Agent Cognitive Runtime</h1>
+    <p class="subtitle">12 specialised kernels · 90+ engineering functions · bare-metal deployed</p>
+    <span class="live-badge"><span class="live-dot"></span> Live Production · <span id="update-time">connecting...</span></span>
+  </div>
+</div>
+
+<div class="stat-grid" id="stats" style="display:none">
+  <div class="stat-card fade-up"><div class="stat-label">Full Scale IQ</div><div class="stat-value"><span class="count-up" id="fsiq">—</span></div><div class="stat-sub">6-dimensional battery</div></div>
+  <div class="stat-card fade-up"><div class="stat-label">Kernels Active</div><div class="stat-value"><span id="kernels">—</span><span style="font-size:.9rem;color:#5a6a7a">/12</span></div><div class="stat-sub"><span id="kernels-pct">—</span>% healthy</div></div>
+  <div class="stat-card fade-up"><div class="stat-label">System Ticks</div><div class="stat-value"><span class="count-up" id="ticks">—</span></div><div class="stat-sub">Continuous · <span id="uptime">—</span></div></div>
+  <div class="stat-card fade-up"><div class="stat-label">Entropy</div><div class="stat-value"><span id="entropy">—</span></div><div class="stat-sub">Immune: <span id="immune">—</span> threats · <span id="drift">—</span> drift</div></div>
+</div>
+
+<div class="section" id="iq-section">
+  <div class="section-title"><span class="accent iq"></span> Cognitive IQ <span class="section-subtitle">6-dimensional measurement · live from kernel battery</span></div>
+  <div class="iq-container" id="iq-cont">
+    <div class="iq-radar iq-radar-full" id="iq-radar"></div>
+  </div>
+</div>
+
+<div class="section" id="kernels-section">
+  <div class="section-title"><span class="accent kernel"></span> 12-Kernel Society <span class="section-subtitle">specialised cognitive kernels, one runtime</span></div>
+  <div class="kernel-grid" id="kernel-grid"></div>
+</div>
+
+<div class="section" id="network-section">
+  <div class="section-title"><span class="accent cap"></span> Kernel Network Topology <span class="section-subtitle">3D interactive · drag to rotate</span></div>
+  <div class="network-container" id="network-graph"><div class="network-label">loading 3D scene...</div></div>
+</div>
+
+<div class="section" id="inventions-section">
+  <div class="section-title"><span class="accent inv"></span> 12 Engineering Inventions <span class="section-subtitle">all live in production on Qwen Cloud</span></div>
+  <div class="inventions" id="inventions-list"></div>
+</div>
+
+<div class="section" id="caps-section">
+  <div class="section-title"><span class="accent iq"></span> 90+ Core Engineering Functions <span class="section-subtitle">CC-001 to CC-015 shown</span></div>
+  <div class="caps" id="caps-list"></div>
+</div>
+
+<div class="section" id="system-section">
+  <div class="section-title"><span class="accent sys"></span> System State <span class="section-subtitle">live metrics from production runtime</span></div>
+  <div class="sys-grid" id="sys-grid"></div>
+</div>
+
+<div class="section" id="video-section">
+  <div class="section-title"><span class="accent kernel"></span> Demo Video <span class="section-subtitle">197.5s · 4740 frames · ElevenLabs narration</span></div>
+  <div class="video-embed">
+    <div class="play-overlay" id="play-overlay">
+      <div class="play-btn">
+        <svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"/></svg>
+      </div>
+    </div>
+    <video controls poster="" id="demo-video">
+      <source src="/assets/demo-video-en.mp4" type="video/mp4">
+    </video>
+    <div class="video-label">English · Cornelius Sage · 90+ engineering functions</div>
+  </div>
+</div>
+
+<footer id="main-footer" style="display:none">
+  <span>AIGON Agent Society</span>
+  <span>Qwen Cloud Global AI Hackathon 2026</span>
+  <a href="https://github.com/aigon-x/aigon-agent-society-qwen-hack" target="_blank">GitHub</a>
+  <a href="https://qwencloud-hackathon-2026.devpost.com" target="_blank">Devpost</a>
+  <span id="footer-time"></span>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+<!-- 3D Network Graph -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+  }
+}
+</script>
+
+<script>
+const KERNEL_INITIALS = {nano:'N',curie:'C',planck:'P',freud:'F',galileo:'G',yairoslaw:'Y',hawking:'H',turing:'T',knowledge:'K',nash:'N',darwin:'D',yudai:'Y'};
+const KERNEL_COLOR_VAL = {nano:'#3b82f6',curie:'#6366f1',planck:'#f59e0b',freud:'#22c55e',galileo:'#6366f1',yairoslaw:'#f97316',hawking:'#14b8a6',turing:'#ef4444',knowledge:'#14b8a6',nash:'#f59e0b',darwin:'#a855f7',yudai:'#ef4444'};
+
+const INVENTIONS = [
+  [1,'Cognitive ISA','#3b82f6','Type-level instruction set — the runtime IS a CPU for cognition'],
+  [2,'12-Kernel Society','#6366f1','Specialised kernels (Nano to Yudai) as a constitutional society'],
+  [3,'Virtual Context Memory','#22c55e','Freud: cache + LTS + memory bank = infinite context window'],
+  [4,'Federated Consensus','#f97316','Yairoslaw CRDT-based consensus with no single leader across mesh'],
+  [5,'Darwin Evolution','#a855f7','Genetic algorithm evolving agent parameters across 9,000+ generations'],
+  [6,'IQ Measurement','#d946ef','6-dimensional battery: WM, PS, LR, KI, Resilience, Experience'],
+  [7,'Immune System','#14b8a6','Self-healing: drift detection, entropy monitoring, policy repair'],
+  [8,'Time Machine','#f59e0b','Full checkpoint + replay to roll back any tick and debug anomalies'],
+  [9,'Knowledge Fabric','#3b82f6','5-source verified knowledge integration with confidence scoring'],
+  [10,'Yudai Security','#ef4444','8-rule compliance engine: open ports, CORS, auth, session audit'],
+  [11,'Cognitive Trace','#8b5cf6','Full tick attribution — every decision traces to kernel and reason'],
+  [12,'Semantic ABI','#06b6d4','Kernel communication via semantically-typed messages, not raw bytes'],
+];
+const INV_ICON = [
+  '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>',
+  '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>',
+  '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16M10 4v16"/></svg>',
+  '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+  '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>',
+  '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>',
+  '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+  '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+  '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
+  '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>',
+  '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>',
+  '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="4" x2="18" y2="4"/><line x1="6" y1="8" x2="18" y2="8"/><line x1="6" y1="12" x2="18" y2="12"/><line x1="6" y1="16" x2="18" y2="16"/><line x1="6" y1="20" x2="18" y2="20"/></svg>',
+];
+const CAPS = ['CC-001 Review','CC-002 Architecture','CC-003 Security','CC-004 Refactor','CC-005 Bugs','CC-006 Perf','CC-007 Test','CC-008 Docs','CC-009 Bench','CC-010 Deps','CC-011 Migrate','CC-012 Plan','CC-013 RCA','CC-014 Quality','CC-015 Canon'];
+
+const KERNEL_DOMAIN = {nano:'exec',curie:'cog',planck:'strat',freud:'mem',galileo:'cog',yairoslaw:'cons',hawking:'fact',turing:'sec',knowledge:'fact',nash:'strat',darwin:'evo',yudai:'sec'};
+const KERNEL_KEYS = {
+  nano:[['Workers','workers'],['Tasks','total_tasks']],curie:[['Proofs','proof_count'],['Phase','phase']],planck:[['Plans','plans_cached'],['Queue','queue_length']],
+  freud:[['Memory','memory_entries'],['Cache Hit','cache_hit_rate']],galileo:[['Reviews','total_reviews'],['Rules','rules_loaded']],yairoslaw:[['Counter','gcounter_value'],['Committed','consensus_committed']],
+  hawking:[['Facts','facts'],['Confidence','avg_confidence']],turing:[['Checks','checks_run'],['Verified','verified_count']],knowledge:[['Sources','source_count'],['Facts','fact_count']],
+  nash:[['Decisions','decisions_made'],['Games','games_registered']],darwin:[['Generations','generation_count'],['Fitness','fitness']],yudai:[['Compliance','compliance_pass'],['Rules','rules_checked']],
+};
+
+let iqChart = null, _loaded = false, _loadedOnce = false, _3dData = null;
+
+/* ── Loading screen ── */
+let _loadingStart = Date.now(), _barTarget = 5;
+function updateElapsed(){
+  const s = ((Date.now()-_loadingStart)/1000).toFixed(1);
+  const el = document.getElementById('loading-time');
+  if(el) el.textContent = s;
+  // Advance progress bar slowly (5→30→50→70→85→92)
+  if(!_loaded){
+    if(s > 1 && _barTarget < 30) { _barTarget = 30; setBar(_barTarget); }
+    if(s > 3 && _barTarget < 50) { _barTarget = 50; setBar(_barTarget); }
+    if(s > 6 && _barTarget < 70) { _barTarget = 70; setBar(_barTarget); }
+    if(s > 10 && _barTarget < 85) { _barTarget = 85; setBar(_barTarget); }
+    if(s > 15 && _barTarget < 92) { _barTarget = 92; setBar(_barTarget); }
+  }
+  if(!_loaded) requestAnimationFrame(updateElapsed);
+}
+function setBar(pct){ const b=document.getElementById('loading-bar'); if(b) b.style.width=pct+'%'; }
+updateElapsed();
+
+function showDashboard(){
+  _loaded = true;
+  _loadedOnce = true;
+  // Complete progress bar
+  setBar(100);
+  // Brief pause to show 100%
+  setTimeout(() => {
+    const loading = document.getElementById('loading');
+    loading.classList.add('hidden');
+    setTimeout(()=>{loading.style.display='none'}, 900);
+    document.getElementById('main-nav').style.display='flex';
+    document.getElementById('hero-section').style.display='block';
+    document.getElementById('stats').style.display='grid';
+    document.getElementById('main-footer').style.display='flex';
+    // Animate sections in
+    document.querySelectorAll('.section').forEach(s => s.classList.add('visible'));
+  }, 400);
+}
+
+/* ── Counter animation (only from 0) ── */
+function animateValue(el, target) {
+  if(!el || el.textContent === '—'){ if(el && target>0) el.textContent = '0'; else return; }
+  let start = parseInt(el.textContent.replace(/,/g,''))||0;
+  if(start===target) return;
+  let step = Math.max(1, Math.ceil(Math.abs(target-start)/30));
+  const update = () => {
+    start += Math.sign(target-start)*step;
+    if(Math.abs(start-target)<=step){ el.textContent = target.toLocaleString(); return; }
+    el.textContent = start.toLocaleString();
+    requestAnimationFrame(update);
+  };
+  requestAnimationFrame(update);
+}
+
+function Q(id){ return document.getElementById(id); }
+
+/* ── Main render ── */
+function render(d){
+  if(!d) return;
+  const iq = d.iq_test_battery||{};
+  const kh = d.kernel_health||[];
+  const ent = d.entropy||{};
+  const imm = d.immune_system||{};
+  const sen = d.sensor||{};
+  const kpi = d.kpi||{};
+  const tm = d.time_machine||{};
+  const imp = d.self_improvement||{};
+  const eco = d.economy||{};
+  const mesh = d.mesh||{};
+
+  const healthy = kh.filter(k => k.state==='Healthy'||!k.last_error).length;
+
+  // First load → show dashboard
+  if(!_loaded) showDashboard();
+
+  // Animate or set stat values
+  const fsiq = (iq.full_scale_iq||0).toFixed(0)*1;
+  if(fsiq > 0) {
+    const el = Q('fsiq');
+    if(el && el.textContent==='—') el.textContent='0';
+    animateValue(Q('fsiq'), fsiq);
+  } else { setText('fsiq', fsiq); }
+  setText('kernels', healthy);
+  setText('kernels-pct', kh.length ? (healthy/kh.length*100).toFixed(0) : '—');
+  const ticks = iq.tick||0;
+  if(ticks > 0) {
+    const el = Q('ticks');
+    if(el && el.textContent==='—') el.textContent='0';
+    animateValue(Q('ticks'), ticks);
+  } else { setText('ticks', ticks); }
+  setText('entropy', (ent.average_entropy||0).toFixed(4));
+  setText('immune', imm.threats_detected||0);
+  setText('drift', (imp.drift_reports||0).toLocaleString());
+  setText('uptime', fmtDur(sen.uptime_seconds||d.uptime_seconds||0));
+
+  renderIQChart(iq);
+  renderKernels(kh);
+  _3dData = kh;
+  if(window._3dReady) render3D(_3dData);
+  renderInventions();
+  renderCaps();
+  renderSystem(d);
+
+  const now = new Date();
+  setText('update-time', now.toLocaleTimeString()+' · '+now.toLocaleDateString());
+  setText('footer-time', now.toLocaleString());
+}
+
+// Video play overlay + auto-play on scroll
+;(function(){
+  const overlay = document.getElementById('play-overlay');
+  const video = document.getElementById('demo-video');
+  if(!overlay || !video) return;
+
+  // Click to play
+  document.addEventListener('click', function(e){
+    if(overlay.contains(e.target) && !e.target.closest('.video-label')){
+      playVideo();
+    }
+  });
+
+  // Hide overlay on native play
+  document.addEventListener('play', function(e){
+    if(e.target.id === 'demo-video') overlay.classList.add('hidden');
+  }, true);
+
+  function playVideo(){
+    video.play().catch(function(){});
+    overlay.classList.add('hidden');
+  }
+
+  // Auto-play when section scrolls into view (once)
+  if('IntersectionObserver' in window){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting && !video.played.length){
+          playVideo();
+          obs.disconnect();
+        }
+      });
+    }, {threshold:0.5});
+    obs.observe(document.getElementById('video-section'));
+  }
+})();
+
+// Live clock — tick every second, not just on data refresh
+function tickClock(){
+  const now = new Date();
+  const ut = document.getElementById('update-time');
+  if(ut && ut.textContent !== 'connecting...')
+    ut.textContent = now.toLocaleTimeString()+' · '+now.toLocaleDateString();
+  const ft = document.getElementById('footer-time');
+  if(ft) ft.textContent = now.toLocaleString();
+}
+setInterval(tickClock, 1000);
+
+function setText(id, val){
+  const e = Q(id);
+  if(e) e.textContent = typeof val==='number'?val.toLocaleString():val;
+}
+
+/* ── IQ Radar ── */
+function renderIQChart(iq){
+  const labels = ['Working Memory','Processing Speed','Logical Reasoning','Knowledge Integration','Resilience','Experience'];
+  const colors = ['#3b82f6','#6366f1','#8b5cf6','#a855f7','#d946ef','#ec4899'];
+  const vals = [iq.working_memory||0,iq.processing_speed||0,iq.logical_reasoning||0,iq.knowledge_integration||0,iq.resilience||0,iq.experience||0];
+  const canvas = Q('iq-radar');
+  if(!canvas.querySelector('canvas')){
+    const c = document.createElement('canvas'); c.height=280; canvas.appendChild(c);
+    iqChart = new Chart(c, {
+      type:'radar',
+      data:{labels, datasets:[{label:'Cognitive Score',data:vals,backgroundColor:'rgba(99,102,241,.15)',borderColor:'#6366f1',borderWidth:2,pointBackgroundColor:colors,pointRadius:4,pointBorderColor:'#0d0f13',pointBorderWidth:2}]},
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{r:{min:0,max:1,angleLines:{color:'#1a1f26'},grid:{color:'#1a1f26'},pointLabels:{color:'#6b7a8a',font:{size:11}},ticks:{display:false}}}}
+    });
+  } else { iqChart.data.datasets[0].data=vals; iqChart.update(); }
+  const container = canvas.parentElement;
+  if(container && !container.querySelector('.iq-metrics')){
+    const m = document.createElement('div'); m.className='iq-metrics';
+    labels.forEach((l,i)=>{ m.innerHTML += '<div class="iq-metric"><span class="label">'+l+'</span><div class="bar"><div class="bar-fill" style="width:'+(vals[i]*100)+'%;background:'+colors[i]+'"></div></div><span class="val">'+(vals[i]*100).toFixed(0)+'%</span></div>'; });
+    container.appendChild(m);
+  } else if(container){
+    const bars = container.querySelectorAll('.bar-fill');
+    labels.forEach((l,i)=>{ if(bars[i]) bars[i].style.width=(vals[i]*100)+'%'; });
+    const vs = container.querySelectorAll('.iq-metric .val');
+    labels.forEach((l,i)=>{ if(vs[i]) vs[i].textContent=(vals[i]*100).toFixed(0)+'%'; });
+  }
+}
+
+/* ── Kernels ── */
+function renderKernels(kh){
+  Q('kernel-grid').innerHTML = kh.map(k => {
+    const n=k.kernel_name, dom=KERNEL_DOMAIN[n]||'cog', h=!k.last_error&&k.state!=='Error', d=k.details||{}, pairs=KERNEL_KEYS[n]||[], col=KERNEL_COLOR_VAL[n]||'#6366f1';
+    return '<div class="kernel-card domain-'+dom+'"><div class="kernel-hdr"><span class="kernel-name"><span class="kernel-icon" style="background:'+col+'">'+KERNEL_INITIALS[n]+'</span>'+n.charAt(0).toUpperCase()+n.slice(1)+'</span><span class="kernel-status '+(h?'online':'error')+'">'+(h?'Online':k.last_error?'Error':'Offline')+'</span></div><div class="kernel-body">'+pairs.map(([l,k])=>'<div class="kernel-detail">'+l+': <span>'+(rv(n,k,d)||'&mdash;')+'</span></div>').join('')+'</div><div class="kernel-domain">'+dom+'</div></div>';
+  }).join('');
+}
+function rv(name,key,det){
+  if(name==='darwin'&&key==='generation_count') return det?.engine_stats?.[0]?.generation?.toLocaleString()||'&mdash;';
+  if(name==='darwin'&&key==='fitness') return ((det?.fitness??0)*100).toFixed(1)+'%';
+  if(name==='yudai'&&key==='compliance_pass') return (det?.compliance?.filter(r=>r.passed)?.length||0)+'/8';
+  if(name==='yudai'&&key==='rules_checked') return (det?.compliance?.length||0)+'/8';
+  if(key==='cache_hit_rate') return ((det?.cache_hit_rate??0)*100).toFixed(0)+'%';
+  if(key==='avg_confidence') return ((det?.avg_confidence??0)*100).toFixed(0)+'%';
+  const v=det[key];
+  if(v===null||v===undefined) return '&mdash;';
+  return typeof v==='number'?v.toLocaleString():v;
+}
+
+/* ── Static ── */
+function renderInventions(){
+  Q('inventions-list').innerHTML = INVENTIONS.map((inv,i)=>'<div class="invention"><div class="invention-icon" style="background:'+inv[2]+'22;color:'+inv[2]+'">'+(INV_ICON[i]||'')+'</div><div class="invention-body"><span class="num">AC-'+(inv[0]<10?'0'+inv[0]:inv[0])+'</span><span class="name">'+inv[1]+'</span><span class="desc">'+inv[3]+'</span></div></div>').join('');
+}
+function renderCaps(){
+  Q('caps-list').innerHTML = CAPS.map(c=>'<span class="cap"><span class="id">'+c.split(' ')[0]+'</span>'+c.split(' ').slice(1).join(' ')+'</span>').join('');
+}
+function renderSystem(d){
+  const iq=d.iq_test_battery||{}, sen=d.sensor||{}, kpi=d.kpi||{}, tm=d.time_machine||{}, eco=d.economy||{}, mesh=d.mesh||{}, imp=d.self_improvement||{};
+  const items=[
+    ['Runtime',d.runtime||'aigon-x-v2'],['Boot',d.boot_phase||'running'],
+    ['Node',(d.node_id||'&mdash;').slice(0,16)],['Total Ticks',(kpi.total_ticks||0).toLocaleString()],
+    ['IQ Score',(kpi.last_iq_score||0).toFixed(1)],['Extended IQ',(kpi.last_extended_iq_score||0).toFixed(0)],
+    ['Distill Cycles',(kpi.total_cognitive_distills||0).toLocaleString()],
+    ['Inference',(kpi.total_inference_calls||0).toLocaleString()+' calls'],
+    ['Tokens',(kpi.total_inference_tokens||0).toLocaleString()],
+    ['Sessions',(eco.session_count||0).toLocaleString()],
+    ['Active Workers',d.scaler?.active_workers||'&mdash;'],['SLA',(d.scaler?.sla_compliance_pct||'&mdash;')+'%'],
+    ['Time Machine',(tm.records||0).toLocaleString()+' records'],
+    ['Tick Range','#'+(tm.oldest_tick||0)+' to #'+(tm.current_tick||0)],
+    ['Drift Reports',(imp.drift_reports||0).toLocaleString()],
+    ['CPU',(sen.cpu_load||'&mdash;').toFixed(1)+'%'],['Memory',(sen.memory_mb||0).toFixed(0)+' MB'],
+    ['Tick Rate',(sen.tick_rate||'&mdash;').toFixed(2)+' Hz'],['Uptime',fmtDur(sen.uptime_seconds||d.uptime_seconds||0)],
+    ['Mesh Peers',mesh.healthy_peers||0],['Quorum',mesh.has_quorum?'Yes':'No'],
+  ];
+  Q('sys-grid').innerHTML = items.map(i=>'<div class="sys-card"><div class="sys-label">'+i[0]+'</div><div class="sys-value">'+i[1]+'</div></div>').join('');
+}
+function fmtDur(s){
+  if(!s||s===0) return '&mdash;';
+  const h=Math.floor(s/3600), m=Math.floor((s%3600)/60);
+  return h+'h '+m+'m';
+}
+
+/* ── Fetch ── */
+fetchHealth();
+async function fetchHealth(){
+  try{
+    const r=await fetch('/api/health',{signal:AbortSignal.timeout(10000)});
+    const d=await r.json();
+    window._lastHealth=d;
+    render(d);
+  }catch(e){
+    if(window._lastHealth && _loadedOnce) render(window._lastHealth);
+    // silent retry — no error text
+    setTimeout(fetchHealth, 2000);
+  }
+}
+setInterval(fetchHealth, 12000);
+</script>
+
+<script type="module">
+try{
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const NETWORK_PAIRS = [['nano','curie'],['curie','freud'],['freud','galileo'],['galileo','yairoslaw'],['yairoslaw','hawking'],['hawking','turing'],['turing','knowledge'],['knowledge','nash'],['nash','darwin'],['darwin','planck'],['planck','yudai'],['nano','planck'],['curie','galileo'],['freud','hawking'],['turing','yudai'],['nash','darwin']];
+const COLORS = {nano:0x3b82f6,curie:0x6366f1,planck:0xf59e0b,freud:0x22c55e,galileo:0x6366f1,yairoslaw:0xf97316,hawking:0x14b8a6,turing:0xef4444,knowledge:0x14b8a6,nash:0xf59e0b,darwin:0xa855f7,yudai:0xef4444};
+const INITIALS = {nano:'N',curie:'C',planck:'P',freud:'F',galileo:'G',yairoslaw:'Y',hawking:'H',turing:'T',knowledge:'K',nash:'N',darwin:'D',yudai:'Y'};
+
+let scene, camera, renderer, controls, nodeGroup, lineGroup, labelGroup, animId;
+
+function init3D(names){
+  const container = document.getElementById('network-graph');
+  container.innerHTML = '';
+  const w = container.clientWidth||800, h = Math.max(400, w*0.45);
+
+  scene = new THREE.Scene();
+  camera = new THREE.PerspectiveCamera(50, w/h, 0.1, 1000);
+  camera.position.set(0, 1.5, 5);
+  renderer = new THREE.WebGLRenderer({antialias:true, alpha:true});
+  renderer.setSize(w, h);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setClearColor(0x0d0f13, 1);
+  container.appendChild(renderer.domElement);
+
+  controls = new OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.08;
+  controls.autoRotate = true;
+  controls.autoRotateSpeed = 1.5;
+  controls.minDistance = 2;
+  controls.maxDistance = 12;
+  controls.target.set(0, 0, 0);
+
+  const ambient = new THREE.AmbientLight(0x404060, 0.6);
+  scene.add(ambient);
+  const dir = new THREE.DirectionalLight(0xffffff, 1.2);
+  dir.position.set(1, 2, 1);
+  scene.add(dir);
+  const dir2 = new THREE.DirectionalLight(0x6366f1, 0.4);
+  dir2.position.set(-1, -1, -1);
+  scene.add(dir2);
+
+  // Container groups
+  nodeGroup = new THREE.Group();
+  lineGroup = new THREE.Group();
+  labelGroup = new THREE.Group();
+  scene.add(nodeGroup);
+  scene.add(lineGroup);
+  scene.add(labelGroup);
+
+  // Position nodes on a sphere
+  const positions = {};
+  const R = 1.8;
+  names.forEach((n, i) => {
+    const phi = Math.acos(-1 + (2*i)/names.length);
+    const theta = Math.sqrt(names.length*Math.PI) * phi;
+    positions[n] = new THREE.Vector3(R*Math.sin(phi)*Math.cos(theta), R*Math.sin(phi)*Math.sin(theta), R*Math.cos(phi));
+  });
+
+  // Lines
+  NETWORK_PAIRS.forEach(([a,b]) => {
+    if(positions[a] && positions[b]){
+      const pts = [positions[a], positions[b]];
+      const geo = new THREE.BufferGeometry().setFromPoints(pts);
+      const mat = new THREE.LineBasicMaterial({color:0x1a1f26, transparent:true, opacity:0.5});
+      const line = new THREE.Line(geo, mat);
+      lineGroup.add(line);
+    }
+  });
+
+  // Nodes
+  names.forEach((n, i) => {
+    const p = positions[n];
+    const col = COLORS[n]||0x6366f1;
+    // Glow sphere
+    const glow = new THREE.Mesh(
+      new THREE.SphereGeometry(0.28, 16, 16),
+      new THREE.MeshBasicMaterial({color:col, transparent:true, opacity:0.2})
+    );
+    glow.position.copy(p);
+    nodeGroup.add(glow);
+    // Core sphere
+    const core = new THREE.Mesh(
+      new THREE.SphereGeometry(0.18, 16, 16),
+      new THREE.MeshStandardMaterial({color:col, emissive:col, emissiveIntensity:0.3, roughness:0.3, metalness:0.6})
+    );
+    core.position.copy(p);
+    core.userData = {name:n, init:KERNEL_INITIALS[n]};
+    nodeGroup.add(core);
+  });
+
+  // Labels (CSS2D doesn't work well in this context, use sprites)
+  // We'll add a text overlay via HTML after rendering
+
+  window._3dReady = true;
+  if(window._3dData) window.render3D(window._3dData);
+  animate();
+}
+
+function animate(){
+  animId = requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene, camera);
+}
+
+// Make render3D accessible from the non-module script
+window.render3D = function(kh){
+  if(!nodeGroup || !kh || !kh.length) return;
+  const statusMap = {};
+  kh.forEach(k => { statusMap[k.kernel_name] = !k.last_error && k.state !== 'Error'; });
+  nodeGroup.children.forEach(child => {
+    if(child.isMesh && child.geometry.type === 'SphereGeometry' && child.material.emissive){
+      const n = child.userData.name;
+      if(n && statusMap[n] !== undefined){
+        const ok = statusMap[n];
+        const col = new THREE.Color(COLORS[n]||0x6366f1);
+        child.material.color = ok ? col : new THREE.Color(0xef4444);
+        child.material.emissive = ok ? col : new THREE.Color(0xef4444);
+        child.material.emissiveIntensity = ok ? 0.3 : 0.6;
+        // Scale for emphasis
+        child.scale.setScalar(1);
+      }
+    }
+  });
+};
+
+// Init when data arrives
+const checkAndInit = setInterval(() => {
+  const kh = window._3dData;
+  if(kh && kh.length > 0){
+    const names = kh.map(k => k.kernel_name);
+    if(names.length >= 12){
+      init3D(names);
+      clearInterval(checkAndInit);
+    }
+  }
+}, 300);
+
+// Handle resize
+window.addEventListener('resize', () => {
+  if(!renderer) return;
+  const container = document.getElementById('network-graph');
+  const w = container.clientWidth||800;
+  const h = Math.max(400, w*0.45);
+  camera.aspect = w/h;
+  camera.updateProjectionMatrix();
+  renderer.setSize(w, h);
+});
+}catch(e){
+  // Three.js failed — render 2D SVG fallback
+  var c=document.getElementById('network-graph');
+  if(c){
+    c.innerHTML='<svg width="100%" height="400" viewBox="0 0 800 400" style="background:#0d0f13">'+
+      '<circle cx="400" cy="200" r="180" fill="none" stroke="#1a1f26" stroke-width="0.5"/>'+
+      '<text x="400" y="200" text-anchor="middle" fill="#5a6a7a" font-size="14" font-family="Inter">3D not available — using 2D layout</text>'+
+      '</svg>';
+  }
+}
+</script>
+</body>
+</html>

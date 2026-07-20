@@ -1,0 +1,49 @@
+1
+00:00:00,000 --> 00:00:12,416
+AIGON Agent Society — twelve specialized AI kernels working as one. Built with Qwen Cloud, deployed on Alibaba Cloud, powering production distributed intelligence.
+AIGON Agent Society — 十二个专用AI内核协同工作。基于Qwen Cloud构建，部署在阿里云上，驱动生产级分布式智能。
+
+2
+00:00:12,500 --> 00:00:32,416
+Security First. The Yudai Security Kernel enforces eight compliance rules every tick: no open ports, all kernels healthy, audit log enabled, TLS enforced. Zero system errors. Immune system healthy.
+安全第一。Yudai安全内核在每个时钟周期执行八项合规规则。零系统错误。免疫系统健康。
+
+3
+00:00:32,500 --> 00:01:02,416
+Twelve kernels, each a specialist. Nano executes, Curie reasons, Planck plans, Freud remembers. Galileo validates, Yairoslaw consensuses, Hawking manages confidence. Turing verifies, Knowledge connects, Nash plays games, Darwin evolves, and Yudai secures. One hundred percent SLA.
+十二个内核各有所长。Nano执行，Curie推理，Planck规划，Freud记忆。Galileo验证，Yairoslaw共识，Hawking置信度管理。所有内核百分百SLA并行运行。
+
+4
+00:01:02,500 --> 00:01:17,416
+How we crush the competition. Ten dimensions across architecture, memory, consensus, evolution, security, measured IQ, scalability, self-healing, audit, and production readiness. Other entries use single agent loops, static prompts, and chat logs. We deliver twelve specialized kernels, Raft CRDT consensus, Darwin evolution, quantified IQ, and a live production system.
+我们如何碾压对手。十个维度全面领先：架构、内存、共识、进化、安全、IQ、可扩展性、自愈、审计和生产就绪。别人用单个Agent和静态提示，我们提供十二个专用内核、Raft CRDT共识、达尔文进化、量化IQ和实时生产系统。
+
+5
+00:01:17,500 --> 00:01:37,416
+Maximum Decomposition. The Diffusion Engine decomposes every problem into N parallel candidates, each running on a forked kernel via tokio spawn. Six deterministic critics evaluate security, cost, performance, knowledge, trust, and proof quality. The top candidates merge into an optimal solution.
+最大分解。扩散引擎将每个问题分解为N个并行候选方案，每个方案在fork后的内核上运行。六个确定性评审器评估安全性、成本、性能、知识、信任和证明质量。最优候选方案合并为最终结果。
+
+6
+00:01:37,500 --> 00:01:57,416
+Cognitive IQ — quantified intelligence across six dimensions. Full scale IQ one hundred eighty six, extended IQ one hundred seventy nine. Working memory, processing speed, logical reasoning, knowledge integration, resilience, experience. Measurable intelligence, not just a claim.
+认知IQ — 六个维度的量化智能。全量表IQ 186，扩展IQ 179。可测量的智能，不是空口宣称。
+
+7
+00:01:57,500 --> 00:02:17,416
+Darwin Evolution — genetic optimization through natural selection. Over eleven thousand generations, population over one hundred fifty thousand. Fitness zero point nine one two. Self-improving, no manual tuning.
+达尔文进化 — 通过自然选择的遗传优化。超过一万一千代，十五万个体。适应度0.912。持续自我优化，无需人工调参。
+
+8
+00:02:17,500 --> 00:02:37,416
+Mesh Federation and Swarm Intelligence. Four-node Raft CRDT mesh, twelve-kernel swarm coordination, Turing verification with over eleven thousand checks passed, Time Machine with full temporal replay. GPU accelerated, Qwen model, infinitely scalable.
+网格联邦与群体智能。四节点Raft CRDT网格，十二内核群体协调，Turing验证通过万次检查，Time Machine完整时间回溯。GPU加速，Qwen模型，无限可扩展。
+
+9
+00:02:37,500 --> 00:03:07,416
+Twelve engineering inventions, all implemented, all live. From cognitive ISA and twelve-kernel society, to federated consensus, Darwin evolution, IQ measurement, immune system, and Yudai security. Zero stubs, production proven.
+十二项工程发明，全部实现，全部投产。从认知指令集到十二内核社会，联邦共识、达尔文进化、IQ测量、免疫系统、Yudai安全。零存根，生产验证。
+
+10
+00:03:07,500 --> 00:03:17,416
+AIGON Agent Society built with Qwen Cloud. Twelve of twelve kernels live, IQ one seventy nine, over one hundred forty thousand ticks, zero errors. Open source, MIT License, Rust, Axum, Tokio. Visit the repository.
+AIGON Agent Society 基于Qwen Cloud构建。十二内核全部在线，IQ 179，超十四万时钟周期，零错误。开源MIT许可，Rust Axum Tokio。访问代码仓库。

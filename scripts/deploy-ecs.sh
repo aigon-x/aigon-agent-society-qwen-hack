@@ -46,7 +46,7 @@ Type=simple
 ExecStart=$REMOTE_DIR/aigon-runtime-v2 --mode standalone --listen 0.0.0.0:7000
 Environment=RUST_LOG=info
 Environment=QWEN_API_KEY=$QWEN_API_KEY
-Environment=QWEN_ENDPOINT=https://ws-h3ayxryayp3b7ad5.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1
+Environment=QWEN_ENDPOINT=https://<your-workspace-id>.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1
 Environment=QWEN_MODEL=qwen3.7-max
 Restart=always
 RestartSec=5

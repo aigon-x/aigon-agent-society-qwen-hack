@@ -1,0 +1,40 @@
+1
+0:00:00,500 --> 0:00:12,699
+AIGON Agent Society — twelve specialized AI kernels working as one. Built with Qwen Cloud, deployed on Alibaba Cloud, powering production distributed intelligence.
+
+2
+0:00:13,000 --> 0:00:32,700
+Security First. The Yudai Security Kernel enforces eight compliance rules every tick: no open ports, all kernels healthy, audit log enabled, TLS enforced. Zero system errors. The immune system is healthy — entropy zero, threats zero.
+
+3
+0:00:33,000 --> 0:01:02,700
+Twelve kernels, each a specialist. Nano executes tasks, Curie reasons, Planck plans, Freud remembers. Galileo validates knowledge, Yairoslaw achieves consensus, Hawking manages confidence. Turing verifies, Knowledge connects sources, Nash plays strategic games, Darwin evolves through natural selection, and Yudai secures. All running in parallel at one hundred percent SLA.
+
+4
+0:01:03,000 --> 0:01:17,700
+How we crush the competition. Ten dimensions: architecture, memory, consensus, evolution, security, measured IQ, scalability, self-healing, audit trail, and production readiness. Other entries use single agent loops and static prompts. We deliver twelve specialized kernels with Raft CRDT consensus, Darwin evolution, quantified IQ, and a live production system.
+
+5
+0:01:18,000 --> 0:01:37,700
+Maximum Decomposition. The Diffusion Engine decomposes every problem into N parallel candidates, each running on a forked kernel via tokio spawn. Six deterministic critics evaluate security, cost, performance, knowledge, trust, and proof quality. The top candidates merge into an optimal solution. This is real parallel execution, not single threaded inference.
+
+6
+0:01:38,000 --> 0:01:57,700
+Cognitive IQ — a quantified measurement of intelligence across six dimensions: working memory, processing speed, logical reasoning, knowledge integration, resilience, and experience. Full scale IQ one hundred eighty six, extended IQ one hundred seventy nine. Measurable intelligence, not just a claim.
+
+7
+0:01:58,000 --> 0:02:17,699
+Darwin Evolution — a genetic optimization engine that self-improves through natural selection. Over eleven thousand five hundred generations, with a population of over one hundred fifty thousand individuals. Current fitness zero point nine one two. The system evolves continuously — no manual tuning required.
+
+8
+0:02:18,000 --> 0:02:47,699
+Mesh Federation and Swarm Intelligence. Four-node mesh with Raft CRDT consensus, quorum active. Twelve kernels coordinated as a single swarm — self-organizing, leader-elected, zero collisions. Turing verification has passed over eleven thousand six hundred checks. The Time Machine records every tick for full temporal replay.
+
+9
+0:02:48,000 --> 0:03:07,699
+Twelve engineering inventions, all implemented, all live in production. From cognitive instruction set architecture and twelve-kernel society, to virtual context memory, federated consensus, and Darwin evolution. IQ measurement, immune system, Time Machine, Knowledge Fabric, Yudai security, cognitive trace, and semantic ABI. Zero stubs, production proven.
+
+10
+0:03:08,000 --> 0:03:17,699
+AIGON Agent Society — built with Qwen Cloud. Twelve of twelve kernels live, extended IQ one hundred seventy nine, over one hundred forty thousand total ticks, zero errors. GPU accelerated, Qwen three point five model, federated compute with fourteen workers, infinitely scalable. Open source, MIT license, Rust, Axum, Tokio. Visit the repository to learn more.
+

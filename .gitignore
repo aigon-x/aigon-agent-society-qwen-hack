@@ -3,3 +3,10 @@
 __pycache__/
 *.pyc
 aigon-agent-qwen-society
+.overlays/
+prompts/
+assets/segments/
+
+# Security: no tracked credentials or internal infra
+scripts/mesh-prod.html
+scripts/mesh-dashboard.html

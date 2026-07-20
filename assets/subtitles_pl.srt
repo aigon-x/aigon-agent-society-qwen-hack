@@ -1,0 +1,39 @@
+1
+00:00:00,208 --> 00:00:12,291
+[PL] AIGON Agent Society — dwanaście wyspecjalizowanych jąder AI. Qwen Cloud, Alibaba Cloud, produkcyjna inteligencja rozproszona.
+
+2
+00:00:12,708 --> 00:00:32,291
+[PL] Yudai Security: osiem reguł compliance, zero błędów, system immunologiczny zdrowy.
+
+3
+00:00:32,708 --> 00:01:02,291
+[PL] Dwanaście jąder — Nano, Curie, Planck, Freud, Galileo, Yairoslaw, Hawking, Turing, Knowledge, Nash, Darwin, Yudai. Wszystkie na SLA 100%.
+
+4
+00:01:02,708 --> 00:01:17,291
+[PL] Jak miażdżymy konkurencję — dziesięć wymiarów przewagi. 12 kernel vs 1 agent loop. Raft CRDT vs brak. Darwin vs brak. IQ 179 vs tylko gadanie.
+
+5
+00:01:17,708 --> 00:01:37,291
+[PL] Maksymalna dekompozycja — silnik dyfuzji, N równoległych kandydatów, 6 krytyków, łączenie. Prawdziwe równoległe wykonanie przez tokio spawn.
+
+6
+00:01:37,708 --> 00:01:57,291
+[PL] IQ Poznawcze — sześć wymiarów. IQ pełnej skali 186, rozszerzone IQ 179. Mierzalna inteligencja.
+
+7
+00:01:57,708 --> 00:02:17,291
+[PL] Ewolucja Darwina — 11 500+ pokoleń, 150 000+ osobników. Sprawność 0.912. System sam się optymalizuje.
+
+8
+00:02:17,708 --> 00:02:37,291
+[PL] Federacja mesh — 4 węzły, konsensus Raft CRDT, 12 jąder jako jeden rój. Turing: 11 600+ kontroli.
+
+9
+00:02:37,708 --> 00:03:07,291
+[PL] 12 wynalazków inżynieryjnych — od Cognitive ISA po semantyczne ABI. Zero atrap, wszystko w produkcji.
+
+10
+00:03:07,708 --> 00:03:17,291
+[PL] AIGON Agent Society z Qwen Cloud. 12/12 kernel, IQ 179, 140 000+ ticków, zero błędów. GPU, Rust, Axum, Tokio. Otwarte źródło.

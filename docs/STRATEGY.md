@@ -47,19 +47,20 @@ A working **Agent Society platform** deployed on Alibaba Cloud, where multiple s
 | Consensus | Raft CRDT via mesh | None |
 | Evolution | Darwin genetic optimization | Static |
 | Security | Yudai compliance scanner | None |
-| IQ | 188 FSIQ measured | Undefined |
+| IQ | 197 Extended IQ (live) | Undefined |
 | Self-healing | Immune system + drift detection | Manual |
 
 ## 3. Technical Architecture
 
 ```
 ┌────────────────────────────────────────────────────────────┐
-│                    Alibaba Cloud ECS                        │
+│                   4-Node Mesh (Production)                  │
 │                                                             │
 │  ┌──────────────┐    ┌──────────────┐                      │
-│  │  Load Balancer│───▶│  Runtime v2  │── Qwen API calls ──▶│
-│  │  (SLB)        │    │  (4 node     │                      │
-│  └──────────────┘    │   mesh)      │◀─────────────────────│
+│  │  Master Node  │───▶│  Runtime v2  │── Qwen API calls ──▶│
+│  │  (:7000)      │    │  (<prod-ip>)│                      │
+│  └──────────────┘    │  4 node      │                      │
+│                      │   mesh)      │◀─────────────────────│
 │                      └──────┬───────┘                      │
 │                             │                               │
 │              ┌──────────────┴──────────────┐                │
@@ -71,20 +72,20 @@ A working **Agent Society platform** deployed on Alibaba Cloud, where multiple s
 ```
 
 ### Deployment
-- **Compute:** Alibaba Cloud ECS (Ubuntu 24.04)
-- **Runtime:** Rust binary (cross-compiled, ~15MB)
-- **AI:** Qwen Cloud MaaS API (compatible-mode)
-- **Storage:** In-memory + optional RDS (PostgreSQL)
-- **Demo UI:** Minimal web console (Ink/React or static HTML)
+- **Compute:** Production cluster (4-node mesh)
+- **Runtime:** Rust binary (statically linked, ~15MB, Docker)
+- **AI:** Qwen Cloud MaaS API (compatible-mode v1)
+- **Storage:** In-memory + distributed consensus (Raft CRDT)
+- **Demo UI:** Runtime health dashboard (live)
 
 ## 4. Timeline (24h sprint)
 
 | Phase | Time | Task |
 |-------|------|------|
 | **NOW** | Sun eve | Plan, structure, research |
-| **Phase 1** | ~4h | Adapt runtime for standalone Alibaba deploy |
+| **Phase 1** | ~4h | Adapt runtime for production deploy |
 | **Phase 2** | ~3h | Build demo scenario + web UI |
-| **Phase 3** | ~2h | Deploy to Alibaba ECS, verify |
+| **Phase 3** | ~2h | Deploy to production cluster, verify |
 | **Phase 4** | ~2h | Record 3-min demo video |
 | **Phase 5** | ~2h | Write description, architecture diagram |
 | **Phase 6** | ~1h | Submit on Devpost |
@@ -92,7 +93,7 @@ A working **Agent Society platform** deployed on Alibaba Cloud, where multiple s
 
 ## 5. Submission Checklist
 
-- [ ] **Backend screenshot** — Runtime running on Alibaba ECS (`htop`, `/health`)
+|- [x] **Backend screenshot** — Runtime running (assets/screenshot-status.png)
 - [ ] **Public repo** — github.com/your-org/qwen-hack with MIT license
 - [ ] **3-min demo video** — YouTube, public, no login required
 - [ ] **Architecture diagram** — SVG/PNG included
@@ -116,11 +117,11 @@ A working **Agent Society platform** deployed on Alibaba Cloud, where multiple s
 
 ## 7. Technical Requirements
 
-### For Alibaba Cloud deploy
-- Rust cross-compile for `x86_64-unknown-linux-gnu` or `aarch64-unknown-linux-gnu`
-- Minimal Dockerfile (~15MB binary)
-- SLB config or direct port exposure on :7000
-- Health endpoint for screenshot verification
+### Production runtime
+- Dockerized Rust binary (15MB, statically linked)
+- Health endpoint: `:7001/health`
+- 4-node mesh quorum
+- Qwen Cloud MaaS API integration
 
 ### Qwen API Integration
 - Chat completions: `qwen3.7-max` (primary), `qwq-plus` (deep reasoning)
@@ -129,10 +130,8 @@ A working **Agent Society platform** deployed on Alibaba Cloud, where multiple s
 
 ## 8. Risk Mitigation
 
-| Risk | Mitigation |
-|------|-----------|
-| Alibaba Cloud region/setup issues | Test credentials NOW |
-| YouTube processing delay | Record and upload early |
-| Runtime build failures | Use existing PROD binary first |
-| API rate limits | Use flash models for non-critical calls |
-| Repo setup delays | Fork existing aigon-x-new, strip irrelevant parts |
+|| Risk | Mitigation |
+||------|-----------|
+|| YouTube processing delay | Record and upload early |
+|| Runtime build failures | Use existing PROD binary first |
+|| API rate limits | Use flash models for non-critical calls |

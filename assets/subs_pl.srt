@@ -1,0 +1,40 @@
+1
+0:00:00,500 --> 0:00:12,699
+AIGON Agent Society — dwanaście wyspecjalizowanych jąder AI pracujących jako jedno. Zbudowany na Qwen Cloud, wdrożony na Alibaba Cloud, napędzający produkcyjną inteligencję rozproszoną.
+
+2
+0:00:13,000 --> 0:00:32,700
+Bezpieczeństwo przede wszystkim. Jądro Yudai egzekwuje osiem reguł zgodności każdego ticka. Zero błędów systemowych. System immunologiczny jest zdrowy — entropia zerowa, zagrożeń zero.
+
+3
+0:00:33,000 --> 0:01:02,700
+Dwanaście wyspecjalizowanych jąder. Nano wykonuje zadania, Curie rozumuje, Planck planuje, Freud zapamiętuje. Galileo weryfikuje wiedzę, Yairoslaw osiąga konsensus, Hawking zarządza ufnością. Turing weryfikuje, Knowledge łączy źródła, Nash gra strategicznie, Darwin ewoluuje przez dobór naturalny, a Yudai chroni. Wszystkie działają równolegle przy stuprocentowej dostępności.
+
+4
+0:01:03,000 --> 0:01:17,700
+Jak miażdżymy konkurencję. Dziesięć wymiarów: architektura, pamięć, konsensus, ewolucja, bezpieczeństwo, mierzalne IQ, skalowalność, samonaprawa, audyt i gotowość produkcyjna. Inni używają pojedynczej pętli agenta i statycznych promptów. My dostarczamy dwanaście wyspecjalizowanych jąder z konsensusem Raft CRDT, ewolucją darwinowską, kwantyfikowanym IQ i produkcyjnym systemem na żywo.
+
+5
+0:01:18,000 --> 0:01:37,700
+Maksymalna dekompozycja. Silnik dyfuzji rozkłada każdy problem na N równoległych kandydatów, z których każdy działa na sklonowanym jądrze poprzez tokio spawn. Sześć deterministycznych krytyków ocenia bezpieczeństwo, koszt, wydajność, wiedzę, zaufanie i jakość dowodów. Najlepsi kandydaci łączą się w optymalne rozwiązanie. To prawdziwe równoległe wykonanie, a nie jednowątkowa inferencja.
+
+6
+0:01:38,000 --> 0:01:57,700
+IQ Poznawcze — skwantyfikowany pomiar inteligencji w sześciu wymiarach: pamięć robocza, szybkość przetwarzania, logiczne wnioskowanie, integracja wiedzy, odporność i doświadczenie. IQ pełnej skali sto osiemdziesiąt sześć, rozszerzone IQ sto siedemdziesiąt dziewięć. Mierzalna inteligencja, a nie tylko deklaracja.
+
+7
+0:01:58,000 --> 0:02:17,699
+Ewolucja Darwina — silnik optymalizacji genetycznej, który sam się ulepsza poprzez dobór naturalny. Ponad jedenaście i pół tysiąca pokoleń, z populacją ponad stu pięćdziesięciu tysięcy osobników. Sprawność: dziewięć setnych dwanaście. System ewoluuje w sposób ciągły — bez ręcznego strojenia.
+
+8
+0:02:18,000 --> 0:02:47,699
+Federacja Mesh i Inteligencja Rojowa. Siatka czterech węzłów z konsensusem Raft CRDT, aktywne kworum. Dwanaście jąder koordynowanych jako jeden rój — samoorganizujący się, z wyborem lidera, zerową liczbą kolizji. Weryfikacja Turinga przeszła ponad jedenaście tysięcy sześćset kontroli. Wehikuł Czasu rejestruje każdy tick dla pełnego temporalnego odtworzenia.
+
+9
+0:02:48,000 --> 0:03:07,699
+Dwanaście wynalazków inżynieryjnych, wszystkie zaimplementowane, wszystkie działające w produkcji. Od architektury poznawczego zestawu instrukcji i społeczeństwa dwunastu jąder, przez wirtualną pamięć kontekstu, federacyjny konsensus i ewolucję Darwina. Pomiar IQ, system immunologiczny, Wehikuł Czasu, Fabryka Wiedzy, bezpieczeństwo Yudai, ślad poznawczy i semantyczne ABI. Zero atrap, sprawdzone w produkcji.
+
+10
+0:03:08,000 --> 0:03:17,699
+AIGON Agent Society — zbudowany z Qwen Cloud. Dwanaście z dwunastu jąder aktywnych, rozszerzone IQ sto siedemdziesiąt dziewięć, ponad sto czterdzieści tysięcy ticków, zero błędów. Przyspieszony GPU, model Qwen, obliczenia federacyjne z czternastoma workerami, nieskończenie skalowalny. Otwarte źródło, licencja MIT, Rust, Axum, Tokio. Odwiedź repozytorium, aby dowiedzieć się więcej.
+

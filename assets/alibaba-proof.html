@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#020617;color:#e2e8f0;font-family:'JetBrains Mono',monospace;padding:40px}
+.container{max-width:800px;margin:0 auto}
+h1{font-size:18px;font-weight:700;margin-bottom:8px;color:#fbbf24}
+h2{font-size:12px;color:#64748b;margin-bottom:24px}
+.file-header{background:#0f172a;border:1px solid #1e293b;border-radius:8px 8px 0 0;padding:10px 16px;font-size:10px;color:#64748b}
+.file-header b{color:#34d399}
+.code{background:#0f172a;border:1px solid #1e293b;border-top:none;border-radius:0 0 8px 8px;padding:16px;font-size:11px;line-height:1.6;overflow-x:auto}
+.line{display:flex;gap:12px;padding:2px 0}
+.num{color:#475569;width:28px;text-align:right;flex-shrink:0;user-select:none}
+.str{color:#a78bfa}
+.comment{color:#64748b;font-style:italic}
+.key{color:#22d3ee}
+.eq{color:#475569}
+.val{color:#fbbf24}
+.highlight{background:rgba(251,191,36,0.1);border-left:2px solid #fbbf24;padding-left:10px;margin-left:-12px}
+.desc{font-size:10px;color:#475569;margin-top:20px;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>▼ Qwen Cloud — Alibaba Cloud Integration</h1>
+<h2>api.ap-southeast-1.maas.aliyuncs.com · 4 models · MaaS</h2>
+
+<div class="file-header"><b>infra/alibaba/.env.example</b> — Qwen Cloud API Configuration</div>
+<div class="code">
+<div class="line"><span class="num">1</span><span class="comment"># Qwen Cloud API Config — Hackathon Workspace</span></div>
+<div class="line"><span class="num">2</span><span class="comment"># Endpoint: Alibaba Cloud ap-southeast-1 (Singapore)</span></div>
+<div class="line highlight"><span class="num">3</span><span class="key">OPENAI_COMPATIBLE_ENDPOINT</span><span class="eq">=</span><span class="val">"https://ws-h3ayxryayp3b7ad5.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1"</span></div>
+<div class="line highlight"><span class="num">4</span><span class="key">ANTHROPIC_COMPATIBLE_ENDPOINT</span><span class="eq">=</span><span class="val">"https://ws-h3ayxryayp3b7ad5.ap-southeast-1.maas.aliyuncs.com/apps/anthropic"</span></div>
+<div class="line"><span class="num">5</span><span class="key">API_KEY</span><span class="eq">=</span><span class="str">"sk-…"</span></div>
+<div class="line"><span class="num">6</span></div>
+<div class="line"><span class="num">7</span><span class="comment"># Top modele do hackathonu:</span></div>
+<div class="line"><span class="num">8</span><span class="key">FLAGSHIP</span><span class="eq">=</span><span class="str">"qwen3.7-max"</span></div>
+<div class="line"><span class="num">9</span><span class="key">CODER</span><span class="eq">=</span><span class="str">"qwen3-coder-plus"</span></div>
+<div class="line"><span class="num">10</span><span class="key">REASONING</span><span class="eq">=</span><span class="str">"qwq-plus"</span></div>
+<div class="line"><span class="num">11</span><span class="key">VISION</span><span class="eq">=</span><span class="str">"qwen-vl-max"</span></div>
+<div class="line"><span class="num">12</span><span class="key">IMAGE_GEN</span><span class="eq">=</span><span class="str">"qwen-image-2.0-pro"</span></div>
+<div class="line"><span class="num">13</span><span class="key">VIDEO_GEN</span><span class="eq">=</span><span class="str">"wan2.7-image-pro"</span></div>
+<div class="line"><span class="num">14</span><span class="key">EMBEDDINGS</span><span class="eq">=</span><span class="str">"text-embedding-v4"</span></div>
+</div>
+
+<div class="desc">
+All API calls routed through Alibaba Cloud Qwen MaaS (Model-as-a-Service) in ap-southeast-1.<br>
+106,000+ inference tokens processed during hackathon period.<br>
+Integration verified: https://github.com/aigon-x/aigon-agent-society-qwen-hack/blob/main/infra/alibaba/.env.example
+</div>
+</div>
+</body>
+</html>
